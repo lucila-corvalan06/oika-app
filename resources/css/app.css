@@ -4,6 +4,23 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Cargo la paleta del manual de marca para usarla como bg-crema, text-cafe, etc. */
+    --color-crema: #EFEAE0;
+    --color-arena: #D9D1C4;
+    --color-terracota: #B95327;
+    --color-mocha: #54413D;
+    --color-cafe: #34271F;
+    --color-positivo: #35613D;
+    --color-negativo: #C62828;
+}
+
+/* Pongo el fondo y el texto base en toda la app para no repetirlos en cada pantalla */
+@layer base {
+    body {
+        background-color: var(--color-crema);
+        color: var(--color-cafe);
+    }
 }

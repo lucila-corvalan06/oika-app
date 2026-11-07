@@ -11,8 +11,9 @@ export default defineConfig({
             // Cambio app.js por app.jsx porque escribo el frontend con React
             input: ['resources/css/app.css', 'resources/js/app.jsx'],
             refresh: true,
+            // Uso Outfit en tres pesos, respetando mi manual de marca.
             fonts: [
-                bunny('Instrument Sans', {
+                bunny('Outfit', {
                     weights: [400, 500, 600],
                 }),
             ],

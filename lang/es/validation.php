@@ -62,6 +62,7 @@ return [
         'email' => 'correo electrónico',
         'password' => 'contraseña',
         'password_confirmation' => 'confirmación de la contraseña',
+        'terminos' => 'los términos y condiciones',
         'rol' => 'rol',
         'colegio_consejo' => 'colegio o consejo',
         'numero_matricula' => 'número de matrícula',

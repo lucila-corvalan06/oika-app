@@ -80,9 +80,9 @@ class User extends Authenticatable
      */
     public function rutaInicio(): string
     {
-        // Miro primero el rol y sumo cada destino cuando creo su pantalla, hasta entonces todos caen en el inicio.
+        // Sumo cada destino cuando creo su pantalla, hasta entonces el resto cae en el inicio.
         return match ($this->rol) {
-            Rol::UsuarioFinal => 'inicio',
+            Rol::UsuarioFinal => 'familia.inicio',
             default => 'inicio',
         };
     }

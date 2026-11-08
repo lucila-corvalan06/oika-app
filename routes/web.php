@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegistroController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -17,3 +18,9 @@ Route::post('/registrarse', [RegistroController::class, 'guardarRol'])->name('re
 Route::get('/registrarse/datos', [RegistroController::class, 'formularioDatos'])->name('registro.datos.form');
 // Repito la URL de datos con POST, igual que en el primer paso.
 Route::post('/registrarse/datos', [RegistroController::class, 'guardarDatos'])->name('registro.datos.guardar');
+
+// Uso /ingresar con GET para mostrar el formulario y con POST para recibir las credenciales.
+Route::get('/ingresar', [AuthController::class, 'formularioLogin'])->name('auth.login.form');
+Route::post('/ingresar', [AuthController::class, 'ingresar'])->name('auth.login.ingresar');
+// Dejo la salida solo con POST porque cambia algo en el servidor y no tiene que poder dispararse con un enlace.
+Route::post('/salir', [AuthController::class, 'salir'])->name('auth.logout');

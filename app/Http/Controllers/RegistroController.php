@@ -89,8 +89,7 @@ class RegistroController extends Controller
         $request->session()->regenerate();
         $request->session()->forget('registro.rol');
 
-        // Mando al inicio por ahora, más adelante el portero lo manda a la pantalla que le toca.
-        return redirect()->route('inicio');
+        return redirect()->route($usuario->rutaInicio());
     }
 
     /**

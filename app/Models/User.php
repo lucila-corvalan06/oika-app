@@ -74,4 +74,16 @@ class User extends Authenticatable
             'tiene_terreno' => 'boolean',
         ];
     }
+
+    /**
+     * Devuelve el nombre de la ruta a la que tiene que ir esta cuenta según su rol y estado.
+     */
+    public function rutaInicio(): string
+    {
+        // Miro primero el rol y sumo cada destino cuando creo su pantalla, hasta entonces todos caen en el inicio.
+        return match ($this->rol) {
+            Rol::UsuarioFinal => 'inicio',
+            default => 'inicio',
+        };
+    }
 }

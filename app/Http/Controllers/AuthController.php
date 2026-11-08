@@ -40,8 +40,7 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-        // Mando al inicio por ahora, más adelante el portero decide a qué pantalla va cada cuenta
-        return redirect()->intended(route('inicio'));
+        return redirect()->intended(route($request->user()->rutaInicio()));
     }
 
     /**

@@ -18,6 +18,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             HandleInertiaRequests::class,
         ]);
+
+        // Mando a la pantalla de ingreso a quien entra sin sesión a una ruta protegida
+        $middleware->redirectGuestsTo(fn () => route('auth.login.form'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

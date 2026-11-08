@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FamiliaController;
 use App\Http\Controllers\RegistroController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,3 +25,8 @@ Route::get('/ingresar', [AuthController::class, 'formularioLogin'])->name('auth.
 Route::post('/ingresar', [AuthController::class, 'ingresar'])->name('auth.login.ingresar');
 // Dejo la salida solo con POST porque cambia algo en el servidor y no tiene que poder dispararse con un enlace.
 Route::post('/salir', [AuthController::class, 'salir'])->name('auth.logout');
+
+// Pongo auth en el inicio de la familia para que solo entre quien tiene la sesión iniciada.
+Route::get('/familia/inicio', [FamiliaController::class, 'inicio'])
+    ->middleware('auth')
+    ->name('familia.inicio');

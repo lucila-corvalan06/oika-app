@@ -26,7 +26,7 @@ Route::post('/ingresar', [AuthController::class, 'ingresar'])->name('auth.login.
 // Dejo la salida solo con POST porque cambia algo en el servidor y no tiene que poder dispararse con un enlace.
 Route::post('/salir', [AuthController::class, 'salir'])->name('auth.logout');
 
-// Pongo auth en el inicio de la familia para que solo entre quien tiene la sesión iniciada.
+// Pongo auth y después el portero para que solo entre una familia con la sesión iniciada.
 Route::get('/familia/inicio', [FamiliaController::class, 'inicio'])
-    ->middleware('auth')
+    ->middleware(['auth', 'cuenta.lugar:usuario_final'])
     ->name('familia.inicio');

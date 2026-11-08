@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CuentaLugar;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -21,6 +22,11 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // Mando a la pantalla de ingreso a quien entra sin sesión a una ruta protegida
         $middleware->redirectGuestsTo(fn () => route('auth.login.form'));
+
+        // Le pongo un nombre corto al portero para escribirlo en las rutas sin la clase completa
+        $middleware->alias([
+            'cuenta.lugar' => CuentaLugar::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

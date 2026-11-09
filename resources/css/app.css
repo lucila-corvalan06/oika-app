@@ -15,6 +15,10 @@
     --color-cafe: #34271F;
     --color-positivo: #35613D;
     --color-negativo: #C62828;
+    
+    /* Oscurezco el terracota para hover y presionado, así el contraste con el texto blanco no baja */
+    --color-terracota-oscuro: #9E4521;
+    --color-terracota-presionado: #8A3B1B;
 }
 
 /* Pongo el fondo y el texto base en toda la app para no repetirlos en cada pantalla */

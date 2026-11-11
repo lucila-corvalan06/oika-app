@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FamiliaController;
+use App\Http\Controllers\ProyectoController;
 use App\Http\Controllers\RegistroController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,3 +36,9 @@ Route::get('/familia/inicio', [FamiliaController::class, 'inicio'])
 Route::get('/familia/perfil', [FamiliaController::class, 'perfil'])
     ->middleware(['auth', 'cuenta.lugar:usuario_final'])
     ->name('familia.perfil');
+
+// Agrupo las rutas del wizard porque todas piden sesión iniciada y una cuenta de familia.
+Route::middleware(['auth', 'cuenta.lugar:usuario_final'])->group(function () {
+    Route::get('/familia/proyecto/plantas', [ProyectoController::class, 'formularioPlantas'])->name('familia.proyecto.plantas.form');
+    Route::post('/familia/proyecto/plantas', [ProyectoController::class, 'guardarPlantas'])->name('familia.proyecto.plantas.guardar');
+});

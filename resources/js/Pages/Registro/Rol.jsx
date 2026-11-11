@@ -1,5 +1,5 @@
 import { Link, useForm } from '@inertiajs/react';
-import { Buildings, HardHat, House, Truck } from '@phosphor-icons/react';
+import { BuildingsIcon, HardHatIcon, HouseIcon, TruckIcon } from '@phosphor-icons/react';
 import Boton from '../../Componentes/Boton';
 import IndicadorPaso from '../../Componentes/IndicadorPaso';
 import TarjetaRol from '../../Componentes/TarjetaRol';
@@ -10,28 +10,28 @@ const opciones = [
         valor: 'usuario_final',
         titulo: 'Usuario final',
         descripcion: 'Quiero construir mi vivienda por etapas.',
-        icono: <House size={24} weight="bold" />,
+        icono: <HouseIcon size={24} weight="bold" />,
         disponible: true,
     },
     {
         valor: 'profesional',
         titulo: 'Profesional',
         descripcion: 'Ofrezco servicios de obra o diseño.',
-        icono: <HardHat size={24} weight="bold" />,
+        icono: <HardHatIcon size={24} weight="bold" />,
         disponible: false,
     },
     {
         valor: 'proveedor',
         titulo: 'Proveedor',
         descripcion: 'Vendo materiales e insumos.',
-        icono: <Truck size={24} weight="bold" />,
+        icono: <TruckIcon size={24} weight="bold" />,
         disponible: false,
     },
     {
         valor: 'inmobiliaria',
         titulo: 'Inmobiliaria',
         descripcion: 'Publico terrenos y propiedades.',
-        icono: <Buildings size={24} weight="bold" />,
+        icono: <BuildingsIcon size={24} weight="bold" />,
         disponible: false,
     },
 ];

@@ -30,3 +30,8 @@ Route::post('/salir', [AuthController::class, 'salir'])->name('auth.logout');
 Route::get('/familia/inicio', [FamiliaController::class, 'inicio'])
     ->middleware(['auth', 'cuenta.lugar:usuario_final'])
     ->name('familia.inicio');
+
+// Repito auth y el portero para que el perfil también lo vea solo una familia con la sesión iniciada.
+Route::get('/familia/perfil', [FamiliaController::class, 'perfil'])
+    ->middleware(['auth', 'cuenta.lugar:usuario_final'])
+    ->name('familia.perfil');

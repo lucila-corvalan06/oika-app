@@ -20,11 +20,11 @@ function Item({ seccion, activa }) {
         <>
             <Icono
                 size={24}
-                weight={activa ? 'fill' : 'bold'}
+                weight="bold"
                 aria-hidden="true"
                 className={activa ? 'text-terracota' : 'text-mocha'}
             />
-            {seccion.nombre}
+            <span className={activa ? 'font-semibold' : undefined}>{seccion.nombre}</span>
         </>
     );
 

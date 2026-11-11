@@ -36,7 +36,7 @@ export default function Inicio({ nombre }) {
                 </ol>
 
                 <div className="mt-6">
-                    <Boton>Empezar</Boton>
+                    <Boton href="/familia/proyecto/plantas">Empezar</Boton>
                 </div>
             </section>
         </LayoutFamilia>

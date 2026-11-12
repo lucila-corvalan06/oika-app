@@ -41,4 +41,6 @@ Route::get('/familia/perfil', [FamiliaController::class, 'perfil'])
 Route::middleware(['auth', 'cuenta.lugar:usuario_final'])->group(function () {
     Route::get('/familia/proyecto/plantas', [ProyectoController::class, 'formularioPlantas'])->name('familia.proyecto.plantas.form');
     Route::post('/familia/proyecto/plantas', [ProyectoController::class, 'guardarPlantas'])->name('familia.proyecto.plantas.guardar');
+    Route::get('/familia/proyecto/dormitorios', [ProyectoController::class, 'formularioDormitorios'])->name('familia.proyecto.dormitorios.form');
+    Route::post('/familia/proyecto/dormitorios', [ProyectoController::class, 'guardarDormitorios'])->name('familia.proyecto.dormitorios.guardar');
 });

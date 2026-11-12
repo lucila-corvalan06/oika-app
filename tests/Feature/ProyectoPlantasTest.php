@@ -38,7 +38,7 @@ class ProyectoPlantasTest extends TestCase
         // Mando el valor como texto porque así llega desde el formulario
         $this->actingAs($familia)
             ->post(route('familia.proyecto.plantas.guardar'), ['plantas' => '2'])
-            ->assertRedirect(route('familia.inicio'))
+            ->assertRedirect(route('familia.proyecto.dormitorios.form'))
             ->assertSessionHas('proyecto.plantas', 2);
     }
 

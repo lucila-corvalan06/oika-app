@@ -70,6 +70,8 @@ return [
         'archivo' => 'certificado',
         'vigente_hasta' => 'fecha de vigencia',
         'plantas' => 'cantidad de plantas',
+        'dormitorios' => 'cantidad de dormitorios',
+        'banos' => 'cantidad de baños',
     ],
 
 ];

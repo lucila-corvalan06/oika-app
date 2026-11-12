@@ -36,7 +36,44 @@ class ProyectoController extends Controller
         // Todavía no creo el proyecto, guardo la respuesta en la sesión hasta que confirme el resumen.
         $request->session()->put('proyecto.plantas', (int) $datos['plantas']);
 
-        // Vuelvo al inicio hasta que exista el paso 2.
+        return redirect()->route('familia.proyecto.dormitorios.form');
+    }
+
+    /**
+     * Muestra la pantalla donde la familia elige cuántos dormitorios y baños tendrá su casa.
+     */
+    public function formularioDormitorios(Request $request): Response|RedirectResponse
+    {
+        // Si todavía no eligió las plantas la mando al paso 1 para que no se salte el orden del wizard.
+        if (! $request->session()->has('proyecto.plantas')) {
+            return redirect()->route('familia.proyecto.plantas.form');
+        }
+
+        // Dejo los valores iniciales acá para que el servidor sea quien decide con qué arranca cada contador.
+        return Inertia::render('Familia/Proyecto/Dormitorios', [
+            'dormitorios' => $request->session()->get('proyecto.dormitorios', 2),
+            'banos' => $request->session()->get('proyecto.banos', 1),
+        ]);
+    }
+
+    /**
+     * Valida los dormitorios y baños elegidos, los guarda en la sesión y sigue con el próximo paso.
+     */
+    public function guardarDormitorios(Request $request): RedirectResponse
+    {
+        if (! $request->session()->has('proyecto.plantas')) {
+            return redirect()->route('familia.proyecto.plantas.form');
+        }
+
+        $datos = $request->validate([
+            'dormitorios' => ['required', 'integer', 'between:1,5'],
+            'banos' => ['required', 'integer', 'between:1,5'],
+        ]);
+
+        $request->session()->put('proyecto.dormitorios', (int) $datos['dormitorios']);
+        $request->session()->put('proyecto.banos', (int) $datos['banos']);
+
+        // Vuelvo al inicio hasta que exista el paso 3.
         return redirect()->route('familia.inicio');
     }
 }

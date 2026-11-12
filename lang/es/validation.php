@@ -72,6 +72,7 @@ return [
         'plantas' => 'cantidad de plantas',
         'dormitorios' => 'cantidad de dormitorios',
         'banos' => 'cantidad de baños',
+        'espacios' => 'distribución de cocina, comedor y living',
     ],
 
 ];

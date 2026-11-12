@@ -16,7 +16,7 @@ export default function Dormitorios({ dormitorios, banos }) {
 
     return (
         <div className="mx-auto flex min-h-dvh max-w-md flex-col px-6 py-6">
-            <IndicadorPaso actual={2} total={5} />
+            <IndicadorPaso actual={2} total={6} />
 
             <main className="mt-8 flex flex-1 flex-col">
                 <h1 className="text-3xl font-semibold">¿Cuántos dormitorios y baños tendrá tu casa?</h1>

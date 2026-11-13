@@ -77,6 +77,7 @@ return [
         'cochera' => 'cantidad de autos en la cochera',
         'extras' => 'espacios extra',
         'extras.*' => 'espacio extra',
+        'terminacion' => 'nivel de terminación',
     ],
 
 ];

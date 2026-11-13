@@ -145,7 +145,40 @@ class ProyectoController extends Controller
         // Si no tildó ninguno puede no llegar la lista, así que guardo una vacía en ese caso.
         $request->session()->put('proyecto.extras', $datos['extras'] ?? []);
 
-        // Vuelvo al inicio hasta que exista el paso 5.
+        return redirect()->route('familia.proyecto.terminacion.form');
+    }
+
+    /**
+     * Muestra la pantalla donde la familia elige el nivel de terminación de su casa.
+     */
+    public function formularioTerminacion(Request $request): Response|RedirectResponse
+    {
+        // Sin la cochera en la sesión se saltó el paso anterior, así que la mando de vuelta a ese paso.
+        if (! $request->session()->has('proyecto.cochera')) {
+            return redirect()->route('familia.proyecto.cochera.form');
+        }
+
+        return Inertia::render('Familia/Proyecto/Terminacion', [
+            'terminacion' => $request->session()->get('proyecto.terminacion'),
+        ]);
+    }
+
+    /**
+     * Valida el nivel de terminación elegido, lo guarda en la sesión y sigue con el próximo paso.
+     */
+    public function guardarTerminacion(Request $request): RedirectResponse
+    {
+        if (! $request->session()->has('proyecto.cochera')) {
+            return redirect()->route('familia.proyecto.cochera.form');
+        }
+
+        $datos = $request->validate([
+            'terminacion' => ['required', Rule::in(['economica', 'media', 'superior'])],
+        ]);
+
+        $request->session()->put('proyecto.terminacion', $datos['terminacion']);
+
+        // Vuelvo al inicio hasta que exista el paso 6.
         return redirect()->route('familia.inicio');
     }
 }

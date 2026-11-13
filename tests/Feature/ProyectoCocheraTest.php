@@ -51,7 +51,7 @@ class ProyectoCocheraTest extends TestCase
                 'cochera' => '2',
                 'extras' => ['galeria', 'lavadero'],
             ])
-            ->assertRedirect(route('familia.inicio'))
+            ->assertRedirect(route('familia.proyecto.terminacion.form'))
             ->assertSessionHas('proyecto.cochera', 2)
             ->assertSessionHas('proyecto.extras', ['galeria', 'lavadero']);
     }
@@ -64,7 +64,7 @@ class ProyectoCocheraTest extends TestCase
         $this->actingAs($familia)
             ->withSession(['proyecto.espacios' => 'integrados'])
             ->post(route('familia.proyecto.cochera.guardar'), ['cochera' => '0'])
-            ->assertRedirect(route('familia.inicio'))
+            ->assertRedirect(route('familia.proyecto.terminacion.form'))
             ->assertSessionHas('proyecto.cochera', 0)
             ->assertSessionHas('proyecto.extras', []);
     }

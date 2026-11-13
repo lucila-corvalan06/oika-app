@@ -3,53 +3,14 @@ import Boton from '../../../Componentes/Boton';
 import IndicadorPaso from '../../../Componentes/IndicadorPaso';
 import TarjetaRol from '../../../Componentes/TarjetaRol';
 
-// Dibujo un solo salón y otro partido en tres para que la diferencia se vea sin leer.
-const esquemaIntegrados = (
-    <svg
-        viewBox="0 0 48 48"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="3.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="size-10 text-terracota"
-    >
-        <rect x="6" y="12" width="36" height="24" rx="3" />
-    </svg>
-);
-
-const esquemaSeparados = (
-    <svg
-        viewBox="0 0 48 48"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="3.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="size-10 text-terracota"
-    >
-        <rect x="6" y="12" width="36" height="24" rx="3" />
-        <path d="M18 12 V36 M30 12 V36" />
-    </svg>
-);
-
+// Dejo las opciones en una lista para cambiar los textos en un solo lugar
 const opciones = [
-    {
-        valor: 'integrados',
-        titulo: 'Integrados',
-        descripcion: 'Cocina, comedor y living en un solo espacio.',
-        icono: esquemaIntegrados,
-    },
-    {
-        valor: 'separados',
-        titulo: 'Separados',
-        descripcion: 'Cada uno en su propio espacio.',
-        icono: esquemaSeparados,
-    },
+    { valor: 'integrados', titulo: 'Integrados', descripcion: 'Todo junto, en un solo espacio abierto.' },
+    { valor: 'separados', titulo: 'Separados', descripcion: 'Cada uno con sus propias paredes.' },
 ];
 
 export default function Espacios({ espacios }) {
-    // Arranco con lo que ya eligió, y si no con vacío para que ninguna opción venga preseleccionada.
+    // Arranco con lo que ya eligió, y si no con vacío para que ninguna opción venga preseleccionada
     const { data, setData, post, processing, errors } = useForm({
         espacios: espacios ?? '',
     });
@@ -65,7 +26,7 @@ export default function Espacios({ espacios }) {
 
             <main className="mt-8 flex flex-1 flex-col">
                 <h1 className="text-3xl font-semibold">¿Cómo querés la cocina, el comedor y el living?</h1>
-                <p className="mt-2">Elegí si van juntos en un solo espacio o cada uno por su lado.</p>
+                <p className="mt-2">Elegí cómo preferís repartirlos.</p>
 
                 {/* Uso noValidate para que valide solo el servidor y no el navegador */}
                 <form onSubmit={enviar} noValidate className="mt-6 flex flex-1 flex-col">
@@ -79,7 +40,6 @@ export default function Espacios({ espacios }) {
                                 value={opcion.valor}
                                 titulo={opcion.titulo}
                                 descripcion={opcion.descripcion}
-                                icono={opcion.icono}
                                 checked={data.espacios === opcion.valor}
                                 onChange={() => setData('espacios', opcion.valor)}
                             />

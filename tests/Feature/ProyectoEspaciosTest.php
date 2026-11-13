@@ -47,7 +47,7 @@ class ProyectoEspaciosTest extends TestCase
         $this->actingAs($familia)
             ->withSession(['proyecto.dormitorios' => 2])
             ->post(route('familia.proyecto.espacios.guardar'), ['espacios' => 'separados'])
-            ->assertRedirect(route('familia.inicio'))
+            ->assertRedirect(route('familia.proyecto.cochera.form'))
             ->assertSessionHas('proyecto.espacios', 'separados');
     }
 

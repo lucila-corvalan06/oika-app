@@ -6,6 +6,7 @@ return [
     'accepted' => 'Para continuar, tenés que aceptar :attribute.',
     'after' => 'El campo :attribute tiene que tener una fecha posterior al :date.',
     'after_or_equal' => 'El campo :attribute no puede tener una fecha anterior al :date.',
+    'array' => 'La selección de :attribute no es válida.',
     'between' => [
         'array' => 'Elegí entre :min y :max opciones en :attribute.',
         'file' => 'El archivo de :attribute tiene que pesar entre :min y :max KB.',
@@ -73,6 +74,9 @@ return [
         'dormitorios' => 'cantidad de dormitorios',
         'banos' => 'cantidad de baños',
         'espacios' => 'distribución de cocina, comedor y living',
+        'cochera' => 'cantidad de autos en la cochera',
+        'extras' => 'espacios extra',
+        'extras.*' => 'espacio extra',
     ],
 
 ];

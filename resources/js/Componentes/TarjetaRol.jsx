@@ -16,14 +16,17 @@ export default function TarjetaRol({
                 checked ? 'border-terracota' : 'border-arena'
             } ${deshabilitada ? 'cursor-not-allowed' : 'cursor-pointer'}`}
         >
-            <span
-                aria-hidden="true"
-                className={`flex size-12 shrink-0 items-center justify-center rounded-xl bg-arena text-mocha ${
-                    deshabilitada ? 'opacity-60' : ''
-                }`}
-            >
-                {icono}
-            </span>
+            {/* Dibujo el cuadro solo si llega un ícono para que una tarjeta de solo texto no deje un hueco vacío */}
+            {icono && (
+                <span
+                    aria-hidden="true"
+                    className={`flex size-12 shrink-0 items-center justify-center rounded-xl bg-arena text-mocha ${
+                        deshabilitada ? 'opacity-60' : ''
+                    }`}
+                >
+                    {icono}
+                </span>
+            )}
 
             <span className="flex-1">
                 {/* Atenúo solo el texto, así la etiqueta "Próximamente" se sigue leyendo bien */}

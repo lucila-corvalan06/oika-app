@@ -106,7 +106,46 @@ class ProyectoController extends Controller
 
         $request->session()->put('proyecto.espacios', $datos['espacios']);
 
-        // Vuelvo al inicio hasta que exista el paso 4.
+        return redirect()->route('familia.proyecto.cochera.form');
+    }
+
+    /**
+     * Muestra la pantalla donde la familia elige la cochera y los espacios extra.
+     */
+    public function formularioCochera(Request $request): Response|RedirectResponse
+    {
+        // Sin los espacios elegidos se saltó el paso anterior, así que la mando de vuelta a ese paso.
+        if (! $request->session()->has('proyecto.espacios')) {
+            return redirect()->route('familia.proyecto.espacios.form');
+        }
+
+        // Acá ninguno es una respuesta válida, por eso arranca en cero autos y sin extras.
+        return Inertia::render('Familia/Proyecto/Cochera', [
+            'cochera' => $request->session()->get('proyecto.cochera', 0),
+            'extras' => $request->session()->get('proyecto.extras', []),
+        ]);
+    }
+
+    /**
+     * Valida la cochera y los extras elegidos, los guarda en la sesión y sigue con el próximo paso.
+     */
+    public function guardarCochera(Request $request): RedirectResponse
+    {
+        if (! $request->session()->has('proyecto.espacios')) {
+            return redirect()->route('familia.proyecto.espacios.form');
+        }
+
+        $datos = $request->validate([
+            'cochera' => ['required', 'integer', 'between:0,2'],
+            'extras' => ['array'],
+            'extras.*' => [Rule::in(['galeria', 'quincho', 'lavadero'])],
+        ]);
+
+        $request->session()->put('proyecto.cochera', (int) $datos['cochera']);
+        // Si no tildó ninguno puede no llegar la lista, así que guardo una vacía en ese caso.
+        $request->session()->put('proyecto.extras', $datos['extras'] ?? []);
+
+        // Vuelvo al inicio hasta que exista el paso 5.
         return redirect()->route('familia.inicio');
     }
 }

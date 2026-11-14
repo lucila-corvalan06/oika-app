@@ -47,8 +47,20 @@ class ProyectoTerminacionTest extends TestCase
         $this->actingAs($familia)
             ->withSession(['proyecto.cochera' => 0])
             ->post(route('familia.proyecto.terminacion.guardar'), ['terminacion' => 'media'])
-            ->assertRedirect(route('familia.inicio'))
+            ->assertRedirect(route('familia.proyecto.resumen'))
             ->assertSessionHas('proyecto.terminacion', 'media');
+    }
+
+    public function test_editando_desde_el_resumen_guarda_y_vuelve_al_resumen(): void
+    {
+        $familia = User::factory()->create(['rol' => Rol::UsuarioFinal]);
+
+        // Con el parametro volver el servidor tiene que volver al resumen y no seguir por el recorrido
+        $this->actingAs($familia)
+            ->withSession(['proyecto.cochera' => 0])
+            ->post(route('familia.proyecto.terminacion.guardar', ['volver' => 'resumen']), ['terminacion' => 'superior'])
+            ->assertRedirect(route('familia.proyecto.resumen'))
+            ->assertSessionHas('proyecto.terminacion', 'superior');
     }
 
     public function test_rechaza_una_terminacion_invalida(): void

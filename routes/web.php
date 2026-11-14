@@ -49,4 +49,5 @@ Route::middleware(['auth', 'cuenta.lugar:usuario_final'])->group(function () {
     Route::post('/familia/proyecto/cochera', [ProyectoController::class, 'guardarCochera'])->name('familia.proyecto.cochera.guardar');
     Route::get('/familia/proyecto/terminacion', [ProyectoController::class, 'formularioTerminacion'])->name('familia.proyecto.terminacion.form');
     Route::post('/familia/proyecto/terminacion', [ProyectoController::class, 'guardarTerminacion'])->name('familia.proyecto.terminacion.guardar');
+    Route::get('/familia/proyecto/resumen', [ProyectoController::class, 'resumen'])->name('familia.proyecto.resumen');
 });

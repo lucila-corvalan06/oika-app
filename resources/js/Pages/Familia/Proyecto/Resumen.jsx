@@ -1,8 +1,16 @@
-import { Link } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import Boton from '../../../Componentes/Boton';
 import IndicadorPaso from '../../../Componentes/IndicadorPaso';
 
 export default function Resumen({ filas }) {
+    // No mando datos porque las respuestas ya están en la sesión, solo uso el formulario para el POST
+    const { post, processing } = useForm({});
+
+    function guardar(evento) {
+        evento.preventDefault();
+        post('/familia/proyecto/resumen');
+    }
+
     return (
         <div className="mx-auto flex min-h-dvh max-w-md flex-col px-6 py-6">
             <IndicadorPaso actual={6} total={6} />
@@ -34,13 +42,15 @@ export default function Resumen({ filas }) {
                     ))}
                 </ul>
 
-                {/* Dejo el botón inactivo hasta que exista dónde guardar el proyecto */}
-                <div className="mt-auto flex flex-col gap-3 pt-8">
-                    <Boton disabled>Guardar mi proyecto</Boton>
+                {/* Uso noValidate para que valide solo el servidor y no el navegador */}
+                <form onSubmit={guardar} noValidate className="mt-auto flex flex-col gap-3 pt-8">
+                    <Boton type="submit" disabled={processing}>
+                        Guardar mi proyecto
+                    </Boton>
                     <Boton href="/familia/proyecto/terminacion" variante="secundaria">
                         Volver
                     </Boton>
-                </div>
+                </form>
             </main>
         </div>
     );

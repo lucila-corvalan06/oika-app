@@ -192,18 +192,10 @@ class ProyectoController extends Controller
     public function resumen(Request $request): Response|RedirectResponse
     {
         // Si falta alguna respuesta mando a la familia al primer paso que quedó sin contestar.
-        $pasos = [
-            'proyecto.plantas' => 'familia.proyecto.plantas.form',
-            'proyecto.dormitorios' => 'familia.proyecto.dormitorios.form',
-            'proyecto.espacios' => 'familia.proyecto.espacios.form',
-            'proyecto.cochera' => 'familia.proyecto.cochera.form',
-            'proyecto.terminacion' => 'familia.proyecto.terminacion.form',
-        ];
+        $ruta = $this->pasoPendiente($request);
 
-        foreach ($pasos as $clave => $ruta) {
-            if (! $request->session()->has($clave)) {
-                return redirect()->route($ruta);
-            }
+        if ($ruta !== null) {
+            return redirect()->route($ruta);
         }
 
         $proyecto = $request->session()->get('proyecto');
@@ -261,6 +253,49 @@ class ProyectoController extends Controller
                 ],
             ],
         ]);
+    }
+
+    /**
+     * Crea el proyecto de la familia con las respuestas de la sesión, o lo reemplaza si ya tenía uno.
+     */
+    public function guardarResumen(Request $request): RedirectResponse
+    {
+        $ruta = $this->pasoPendiente($request);
+
+        if ($ruta !== null) {
+            return redirect()->route($ruta);
+        }
+
+        // Las respuestas ya se validaron en cada paso, así que las guardo tal cual están en la sesión.
+        $request->user()->proyecto()->updateOrCreate([], $request->session()->get('proyecto'));
+
+        // Limpio la sesión para que el próximo recorrido no arranque con respuestas viejas.
+        $request->session()->forget('proyecto');
+
+        // Todavía no existe Mi proyecto, así que vuelvo al Inicio hasta crear esa pantalla.
+        return redirect()->route('familia.inicio');
+    }
+
+    /**
+     * Devuelve la ruta del primer paso sin responder, o null si el wizard está completo.
+     */
+    private function pasoPendiente(Request $request): ?string
+    {
+        $pasos = [
+            'proyecto.plantas' => 'familia.proyecto.plantas.form',
+            'proyecto.dormitorios' => 'familia.proyecto.dormitorios.form',
+            'proyecto.espacios' => 'familia.proyecto.espacios.form',
+            'proyecto.cochera' => 'familia.proyecto.cochera.form',
+            'proyecto.terminacion' => 'familia.proyecto.terminacion.form',
+        ];
+
+        foreach ($pasos as $clave => $ruta) {
+            if (! $request->session()->has($clave)) {
+                return $ruta;
+            }
+        }
+
+        return null;
     }
 
     /**

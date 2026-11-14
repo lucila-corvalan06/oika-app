@@ -1,5 +1,5 @@
 import { useForm } from '@inertiajs/react';
-import Boton from '../../../Componentes/Boton';
+import BotonesPie from '../../../Componentes/BotonesPie';
 import IndicadorPaso from '../../../Componentes/IndicadorPaso';
 import TarjetaRol from '../../../Componentes/TarjetaRol';
 
@@ -10,7 +10,7 @@ const opciones = [
     { valor: 'superior', titulo: 'Superior', descripcion: 'Materiales y detalles de mayor calidad.' },
 ];
 
-export default function Terminacion({ terminacion }) {
+export default function Terminacion({ terminacion, volverAlResumen }) {
     // Arranco con lo que ya eligió, y si no con vacío para que ninguna opción venga preseleccionada.
     const { data, setData, post, processing, errors } = useForm({
         terminacion: terminacion ?? '',
@@ -18,12 +18,13 @@ export default function Terminacion({ terminacion }) {
 
     function enviar(evento) {
         evento.preventDefault();
-        post('/familia/proyecto/terminacion');
+        // Mando el volver en la dirección para que el servidor sepa que estoy editando
+        post(volverAlResumen ? '/familia/proyecto/terminacion?volver=resumen' : '/familia/proyecto/terminacion');
     }
 
     return (
         <div className="mx-auto flex min-h-dvh max-w-md flex-col px-6 py-6">
-            <IndicadorPaso actual={5} total={6} />
+            <IndicadorPaso actual={5} total={6} editando={volverAlResumen} />
 
             <main className="mt-8 flex flex-1 flex-col">
                 <h1 className="text-3xl font-semibold">¿Qué nivel de terminación querés?</h1>
@@ -53,14 +54,11 @@ export default function Terminacion({ terminacion }) {
                         </p>
                     )}
 
-                    <div className="mt-auto flex gap-3 pt-8">
-                        <Boton href="/familia/proyecto/cochera" variante="secundaria" className="flex-1">
-                            Volver
-                        </Boton>
-                        <Boton type="submit" disabled={processing || data.terminacion === ''} className="flex-1">
-                            Continuar
-                        </Boton>
-                    </div>
+                    <BotonesPie
+                    volverA="/familia/proyecto/cochera"
+                    editando={volverAlResumen}
+                    desactivado={processing || data.terminacion === ''}
+                    />
                 </form>
             </main>
         </div>

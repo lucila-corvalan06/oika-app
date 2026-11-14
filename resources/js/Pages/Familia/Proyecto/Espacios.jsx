@@ -1,5 +1,5 @@
 import { useForm } from '@inertiajs/react';
-import Boton from '../../../Componentes/Boton';
+import BotonesPie from '../../../Componentes/BotonesPie';
 import IndicadorPaso from '../../../Componentes/IndicadorPaso';
 import TarjetaRol from '../../../Componentes/TarjetaRol';
 
@@ -9,7 +9,7 @@ const opciones = [
     { valor: 'separados', titulo: 'Separados', descripcion: 'Cada uno con sus propias paredes.' },
 ];
 
-export default function Espacios({ espacios }) {
+export default function Espacios({ espacios, volverAlResumen }) {
     // Arranco con lo que ya eligió, y si no con vacío para que ninguna opción venga preseleccionada
     const { data, setData, post, processing, errors } = useForm({
         espacios: espacios ?? '',
@@ -17,12 +17,13 @@ export default function Espacios({ espacios }) {
 
     function enviar(evento) {
         evento.preventDefault();
-        post('/familia/proyecto/espacios');
+        // Mando el volver en la dirección para que el servidor sepa que estoy editando
+        post(volverAlResumen ? '/familia/proyecto/espacios?volver=resumen' : '/familia/proyecto/espacios');
     }
 
     return (
         <div className="mx-auto flex min-h-dvh max-w-md flex-col px-6 py-6">
-            <IndicadorPaso actual={3} total={6} />
+            <IndicadorPaso actual={3} total={6} editando={volverAlResumen} />
 
             <main className="mt-8 flex flex-1 flex-col">
                 <h1 className="text-3xl font-semibold">¿Cómo querés la cocina, el comedor y el living?</h1>
@@ -52,14 +53,11 @@ export default function Espacios({ espacios }) {
                         </p>
                     )}
 
-                    <div className="mt-auto flex gap-3 pt-8">
-                        <Boton href="/familia/proyecto/dormitorios" variante="secundaria" className="flex-1">
-                            Volver
-                        </Boton>
-                        <Boton type="submit" disabled={processing || data.espacios === ''} className="flex-1">
-                            Continuar
-                        </Boton>
-                    </div>
+                    <BotonesPie
+                        volverA="/familia/proyecto/dormitorios"
+                        editando={volverAlResumen}
+                        desactivado={processing || data.espacios === ''}
+                    />
                 </form>
             </main>
         </div>

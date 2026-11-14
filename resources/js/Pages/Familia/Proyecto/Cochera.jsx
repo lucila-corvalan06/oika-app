@@ -1,5 +1,5 @@
 import { useForm } from '@inertiajs/react';
-import Boton from '../../../Componentes/Boton';
+import BotonesPie from '../../../Componentes/BotonesPie';
 import IndicadorPaso from '../../../Componentes/IndicadorPaso';
 import OpcionCorta from '../../../Componentes/OpcionCorta';
 import TarjetaCasilla from '../../../Componentes/TarjetaCasilla';
@@ -17,7 +17,7 @@ const extrasDisponibles = [
     { valor: 'lavadero', titulo: 'Lavadero', descripcion: 'Lugar para lavar y secar la ropa.' },
 ];
 
-export default function Cochera({ cochera, extras }) {
+export default function Cochera({ cochera, extras, volverAlResumen }) {
     // Los valores iniciales los decide el servidor, acá solo los uso como punto de partida
     const { data, setData, post, processing, errors } = useForm({
         cochera,
@@ -35,12 +35,13 @@ export default function Cochera({ cochera, extras }) {
 
     function enviar(evento) {
         evento.preventDefault();
-        post('/familia/proyecto/cochera');
+        // Mando el volver en la dirección para que el servidor sepa que estoy editando
+        post(volverAlResumen ? '/familia/proyecto/cochera?volver=resumen' : '/familia/proyecto/cochera');
     }
 
     return (
         <div className="mx-auto flex min-h-dvh max-w-md flex-col px-6 py-6">
-            <IndicadorPaso actual={4} total={6} />
+            <IndicadorPaso actual={4} total={6} editando={volverAlResumen} />
 
             <main className="mt-8 flex flex-1 flex-col">
                 <h1 className="text-3xl font-semibold">¿Qué más va a tener tu hogar?</h1>
@@ -100,14 +101,7 @@ export default function Cochera({ cochera, extras }) {
                         )}
                     </section>
 
-                    <div className="mt-auto flex gap-3 pt-8">
-                        <Boton href="/familia/proyecto/espacios" variante="secundaria" className="flex-1">
-                            Volver
-                        </Boton>
-                        <Boton type="submit" disabled={processing} className="flex-1">
-                            Continuar
-                        </Boton>
-                    </div>
+                    <BotonesPie volverA="/familia/proyecto/espacios" editando={volverAlResumen} desactivado={processing} />
                 </form>
             </main>
         </div>

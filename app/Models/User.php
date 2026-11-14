@@ -9,6 +9,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -32,6 +33,7 @@ use Illuminate\Support\Carbon;
  * @property bool|null $tiene_terreno
  * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
+ * @property-read Proyecto|null $proyecto
  *
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
@@ -85,5 +87,14 @@ class User extends Authenticatable
             Rol::UsuarioFinal => 'familia.inicio',
             default => 'inicio',
         };
+    }
+
+    /**
+     * Devuelve el proyecto que armó esta familia, si ya lo guardó.
+     */
+    public function proyecto(): HasOne
+    {
+        // Es uno solo por familia, y la base lo garantiza con el unique de user_id
+        return $this->hasOne(Proyecto::class);
     }
 }

@@ -82,7 +82,8 @@ export default function Rol() {
                     )}
 
                     <div className="mt-auto flex gap-3 pt-8">
-                        <Boton href="/" variante="secundaria" className="flex-1">
+                        {/* Vuelvo a la Bienvenida y no a la raíz porque la raíz ahora es la Landing */}
+                        <Boton href="/bienvenida" variante="secundaria" className="flex-1">
                             Volver
                         </Boton>
                         <Boton type="submit" disabled={processing} className="flex-1">

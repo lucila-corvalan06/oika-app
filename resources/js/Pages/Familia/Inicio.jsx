@@ -1,44 +1,36 @@
 import Boton from '../../Componentes/Boton';
 import LayoutFamilia from '../../Componentes/LayoutFamilia';
+import ListaEtapas from '../../Componentes/ListaEtapas';
 
-// Dejo las etapas en una lista para cambiar el texto en un solo lugar cuando las validen
-const etapas = ['Cimientos y contrapiso', 'Mampostería', 'Techo y losa', 'Instalaciones', 'Terminaciones'];
-
-export default function Inicio({ nombre }) {
+export default function Inicio({ nombre, tieneProyecto }) {
     return (
         <LayoutFamilia activa="inicio">
             <h1 className="text-3xl font-semibold">Hola, {nombre}</h1>
-            <p className="mt-2">Armemos tu casa etapa por etapa, a tu ritmo.</p>
+            <p className="mt-2">Armemos tu hogar etapa por etapa, a tu ritmo.</p>
 
-            <section className="mt-6 rounded-3xl bg-arena/50 p-6">
-                <h2 className="text-xl font-semibold">Armá tu proyecto</h2>
-                <p className="mt-2">
-                    Contanos cómo imaginás tu casa y te armamos un plan con costos y tiempos.
-                </p>
+            {/* Cambio la tarjeta según haya proyecto guardado para no pedirle que lo arme de nuevo */}
+            {tieneProyecto ? (
+                <section className="mt-6 rounded-3xl bg-arena/50 p-6">
+                    <h2 className="text-xl font-semibold">Tu proyecto está guardado</h2>
+                    <p className="mt-2">Revisá tus respuestas y las etapas de tu obra cuando quieras.</p>
 
-                <h3 className="mt-6 text-sm font-semibold">Tu obra se organiza en 5 etapas</h3>
-                <ol className="mt-3">
-                    {etapas.map((etapa, indice) => (
-                        <li key={etapa} className="relative flex items-center gap-4 py-1.5">
-                            {/* El conector es decorativo, por eso lo escondo de los lectores de pantalla. */}
-                            {indice < etapas.length - 1 && (
-                                <span
-                                    aria-hidden="true"
-                                    className="absolute left-4 top-1/2 h-full w-px -translate-x-1/2 bg-mocha/40"
-                                />
-                            )}
-                            <span className="relative flex size-8 items-center justify-center rounded-full bg-crema text-sm font-semibold ring-1 ring-mocha/25">
-                                {indice + 1}
-                            </span>
-                            {etapa}
-                        </li>
-                    ))}
-                </ol>
+                    <div className="mt-6">
+                        <Boton href="/familia/proyecto">Ver mi proyecto</Boton>
+                    </div>
+                </section>
+            ) : (
+                <section className="mt-6 rounded-3xl bg-arena/50 p-6">
+                    <h2 className="text-xl font-semibold">Armá tu proyecto</h2>
+                    <p className="mt-2">Contanos cómo imaginás tu hogar y armamos tu proyecto, etapa por etapa.</p>
 
-                <div className="mt-6">
-                    <Boton href="/familia/proyecto/plantas">Empezar</Boton>
-                </div>
-            </section>
+                    <h3 className="mt-6 text-sm font-semibold">Tu obra se organiza en 5 etapas</h3>
+                    <ListaEtapas className="mt-3" />
+
+                    <div className="mt-6">
+                        <Boton href="/familia/proyecto/plantas">Empezar</Boton>
+                    </div>
+                </section>
+            )}
         </LayoutFamilia>
     );
 }

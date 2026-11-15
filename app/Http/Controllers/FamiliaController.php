@@ -13,13 +13,15 @@ use Inertia\Response;
 class FamiliaController extends Controller
 {
     /**
-     * Muestra el inicio de la familia con su primer nombre.
+     * Muestra el inicio de la familia con su primer nombre y si ya guardó su proyecto.
      */
     public function inicio(Request $request): Response
     {
         // Mando solo el primer nombre y lo normalizo para que el saludo se vea igual aunque lo hayan escrito en minúsculas o en mayúsculas
         return Inertia::render('Familia/Inicio', [
             'nombre' => Str::ucfirst(Str::lower(Str::before($request->user()->name, ' '))),
+            // Mando solo si existe y no el proyecto entero, porque el Inicio solo decide qué tarjeta mostrar
+            'tieneProyecto' => $request->user()->proyecto()->exists(),
         ]);
     }
 

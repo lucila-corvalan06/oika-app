@@ -114,7 +114,7 @@ class ProyectoResumenTest extends TestCase
         $this->actingAs($familia)
             ->withSession($this->respuestasCompletas())
             ->post(route('familia.proyecto.resumen.guardar'))
-            ->assertRedirect(route('familia.inicio'))
+            ->assertRedirect(route('familia.proyecto.ver'))
             ->assertSessionMissing('proyecto.plantas');
 
         // Leo el proyecto de la base para comprobar que el cast devuelve los extras como lista
@@ -144,7 +144,7 @@ class ProyectoResumenTest extends TestCase
         $this->actingAs($familia)
             ->withSession($this->respuestasCompletas())
             ->post(route('familia.proyecto.resumen.guardar'))
-            ->assertRedirect(route('familia.inicio'));
+            ->assertRedirect(route('familia.proyecto.ver'));
 
         // Tiene que seguir habiendo un solo proyecto, con las respuestas nuevas
         $this->assertDatabaseCount('proyectos', 1);

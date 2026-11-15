@@ -52,4 +52,6 @@ Route::middleware(['auth', 'cuenta.lugar:usuario_final'])->group(function () {
     Route::get('/familia/proyecto/resumen', [ProyectoController::class, 'resumen'])->name('familia.proyecto.resumen');
     // Uso la misma URL del resumen con POST porque es la que recibe la confirmación de la familia.
     Route::post('/familia/proyecto/resumen', [ProyectoController::class, 'guardarResumen'])->name('familia.proyecto.resumen.guardar');
+    // Dejo /familia/proyecto sin paso al final porque es el proyecto ya guardado, el que abre la sección Mi proyecto.
+    Route::get('/familia/proyecto', [ProyectoController::class, 'miProyecto'])->name('familia.proyecto.ver');
 });

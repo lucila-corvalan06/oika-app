@@ -198,8 +198,65 @@ class ProyectoController extends Controller
             return redirect()->route($ruta);
         }
 
-        $proyecto = $request->session()->get('proyecto');
+        // Paso false como tercer parámetro para que el enlace salga relativo y no con el dominio.
+        $filas = array_map(
+            fn ($fila) => $fila + [
+                'editar' => route('familia.proyecto.'.$fila['clave'].'.form', ['volver' => 'resumen'], false),
+            ],
+            $this->filasDelProyecto($request->session()->get('proyecto')),
+        );
 
+        return Inertia::render('Familia/Proyecto/Resumen', [
+            'filas' => $filas,
+        ]);
+    }
+
+    /**
+     * Crea el proyecto de la familia con las respuestas de la sesión, o lo reemplaza si ya tenía uno.
+     */
+    public function guardarResumen(Request $request): RedirectResponse
+    {
+        $ruta = $this->pasoPendiente($request);
+
+        if ($ruta !== null) {
+            return redirect()->route($ruta);
+        }
+
+        // Las respuestas ya se validaron en cada paso, así que las guardo tal cual están en la sesión.
+        $request->user()->proyecto()->updateOrCreate([], $request->session()->get('proyecto'));
+
+        // Limpio la sesión para que el próximo recorrido no arranque con respuestas viejas.
+        $request->session()->forget('proyecto');
+
+        // Llevo a Mi proyecto para que la familia vea enseguida lo que acaba de guardar.
+        return redirect()->route('familia.proyecto.ver');
+    }
+
+    /**
+     * Muestra el proyecto que la familia ya guardó, con sus respuestas y las etapas de la obra.
+     */
+    public function miProyecto(Request $request): Response|RedirectResponse
+    {
+        $proyecto = $request->user()->proyecto;
+
+        // Sin proyecto guardado no hay nada que mostrar, así que la mando al Inicio donde puede armarlo.
+        if ($proyecto === null) {
+            return redirect()->route('familia.inicio');
+        }
+
+        // Pido solo las siete respuestas para que no viajen el id ni las fechas.
+        return Inertia::render('Familia/Proyecto/MiProyecto', [
+            'filas' => $this->filasDelProyecto($proyecto->only([
+                'plantas', 'dormitorios', 'banos', 'espacios', 'cochera', 'extras', 'terminacion',
+            ])),
+        ]);
+    }
+
+    /**
+     * Arma las filas con el texto de cada respuesta, para que las compartan el resumen y Mi proyecto.
+     */
+    private function filasDelProyecto(array $proyecto): array
+    {
         // Armo acá los textos para que la pantalla solo tenga que dibujarlos.
         $plantas = [1 => 'Una planta', 2 => 'Dos plantas'][$proyecto['plantas']];
 
@@ -222,58 +279,14 @@ class ProyectoController extends Controller
 
         $terminacion = ['economica' => 'Económica', 'media' => 'Media', 'superior' => 'Superior'][$proyecto['terminacion']];
 
-        // Paso false como tercer parámetro para que el enlace salga relativo y no con el dominio.
-        return Inertia::render('Familia/Proyecto/Resumen', [
-            'filas' => [
-                [
-                    'titulo' => 'Plantas',
-                    'valor' => $plantas,
-                    'editar' => route('familia.proyecto.plantas.form', ['volver' => 'resumen'], false),
-                ],
-                [
-                    'titulo' => 'Dormitorios y baños',
-                    'valor' => $dormitorios.' y '.$banos,
-                    'editar' => route('familia.proyecto.dormitorios.form', ['volver' => 'resumen'], false),
-                ],
-                [
-                    'titulo' => 'Cocina, comedor y living',
-                    'valor' => $espacios,
-                    'editar' => route('familia.proyecto.espacios.form', ['volver' => 'resumen'], false),
-                ],
-                [
-                    'titulo' => 'Cochera y extras',
-                    'valor' => $autos,
-                    'detalle' => $detalleExtras,
-                    'editar' => route('familia.proyecto.cochera.form', ['volver' => 'resumen'], false),
-                ],
-                [
-                    'titulo' => 'Nivel de terminación',
-                    'valor' => $terminacion,
-                    'editar' => route('familia.proyecto.terminacion.form', ['volver' => 'resumen'], false),
-                ],
-            ],
-        ]);
-    }
-
-    /**
-     * Crea el proyecto de la familia con las respuestas de la sesión, o lo reemplaza si ya tenía uno.
-     */
-    public function guardarResumen(Request $request): RedirectResponse
-    {
-        $ruta = $this->pasoPendiente($request);
-
-        if ($ruta !== null) {
-            return redirect()->route($ruta);
-        }
-
-        // Las respuestas ya se validaron en cada paso, así que las guardo tal cual están en la sesión.
-        $request->user()->proyecto()->updateOrCreate([], $request->session()->get('proyecto'));
-
-        // Limpio la sesión para que el próximo recorrido no arranque con respuestas viejas.
-        $request->session()->forget('proyecto');
-
-        // Todavía no existe Mi proyecto, así que vuelvo al Inicio hasta crear esa pantalla.
-        return redirect()->route('familia.inicio');
+        // Dejo la clave de cada fila igual al nombre de su paso para armar después la ruta de editar.
+        return [
+            ['clave' => 'plantas', 'titulo' => 'Plantas', 'valor' => $plantas],
+            ['clave' => 'dormitorios', 'titulo' => 'Dormitorios y baños', 'valor' => $dormitorios.' y '.$banos],
+            ['clave' => 'espacios', 'titulo' => 'Cocina, comedor y living', 'valor' => $espacios],
+            ['clave' => 'cochera', 'titulo' => 'Cochera y extras', 'valor' => $autos, 'detalle' => $detalleExtras],
+            ['clave' => 'terminacion', 'titulo' => 'Nivel de terminación', 'valor' => $terminacion],
+        ];
     }
 
     /**

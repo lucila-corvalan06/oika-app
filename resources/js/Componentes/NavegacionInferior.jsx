@@ -4,7 +4,7 @@ import { HouseIcon, WallIcon, PiggyBankIcon, StorefrontIcon, UserIcon } from '@p
 // Dejo las secciones en una lista para sumar una con una sola línea
 const secciones = [
     { clave: 'inicio', nombre: 'Inicio', Icono: HouseIcon, href: '/familia/inicio' },
-    { clave: 'proyecto', nombre: 'Mi proyecto', Icono: WallIcon },
+    { clave: 'proyecto', nombre: 'Mi proyecto', Icono: WallIcon, href: '/familia/proyecto' },
     { clave: 'ahorro', nombre: 'Ahorro', Icono: PiggyBankIcon },
     { clave: 'marketplace', nombre: 'Marketplace', Icono: StorefrontIcon },
     { clave: 'perfil', nombre: 'Perfil', Icono: UserIcon, href: '/familia/perfil' },
@@ -18,9 +18,10 @@ function Item({ seccion, activa }) {
 
     const contenido = (
         <>
+            {/* Relleno solo en la sección activa, como pide el manual, así marca dónde estoy sin cargar el resto */}
             <Icono
                 size={24}
-                weight="bold"
+                weight={activa ? 'fill' : 'bold'}
                 aria-hidden="true"
                 className={activa ? 'text-terracota' : 'text-mocha'}
             />

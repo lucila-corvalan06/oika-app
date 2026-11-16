@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react';
 import { ListIcon, XIcon } from '@phosphor-icons/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Boton from '../Boton';
 import Imagotipo from '../Imagotipo';
 
@@ -11,24 +11,51 @@ const enlaces = [
     { texto: 'Preguntas', href: '#preguntas' },
 ];
 
-// Comparto las clases entre el menú de escritorio y el del panel para que se vean iguales
+// Comparto estas clases entre la cabecera y el cajón para que se vean iguales
 const clasesEnlace =
-    'inline-flex min-h-12 items-center px-3 font-medium text-cafe transition-colors hover:text-terracota focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracota';
+    'inline-flex min-h-12 items-center font-medium text-cafe transition-colors hover:text-terracota focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracota';
+
+// Le doy 48 px de alto al logo para que sea fácil de tocar y lo subo un poco para alinear las letras con los enlaces
+const clasesLogo =
+    'inline-flex min-h-12 -translate-y-1 items-center rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracota';
+
+const clasesBotonMenu =
+    'inline-flex size-12 items-center justify-center rounded-xl text-mocha focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracota';
 
 export default function Cabecera() {
     const [abierto, setAbierto] = useState(false);
+    const dialogo = useRef(null);
 
-    // Cierro el panel con Esc porque es lo que espera quien navega con teclado
+    // Abro y cierro el diálogo nativo según el estado y bloqueo el scroll de la página mientras está abierto
     useEffect(() => {
-        if (!abierto) return;
+        const elemento = dialogo.current;
 
-        const alApretar = (evento) => {
-            if (evento.key === 'Escape') setAbierto(false);
+        if (abierto && !elemento.open) elemento.showModal();
+        if (!abierto && elemento.open) elemento.close();
+
+        document.body.style.overflow = abierto ? 'hidden' : '';
+
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [abierto]);
+
+    // Cierro el menú si la pantalla pasa a escritorio, por ejemplo al girar la tablet, para que la página no quede bloqueada
+    useEffect(() => {
+        const escritorio = window.matchMedia('(min-width: 1024px)');
+
+        const alCambiar = (evento) => {
+            if (evento.matches) setAbierto(false);
         };
 
-        document.addEventListener('keydown', alApretar);
-        return () => document.removeEventListener('keydown', alApretar);
-    }, [abierto]);
+        escritorio.addEventListener('change', alCambiar);
+        return () => escritorio.removeEventListener('change', alCambiar);
+    }, []);
+
+    // Cierro el menú si tocan el fondo oscuro, que para el navegador es un clic sobre el propio diálogo
+    function alTocarElFondo(evento) {
+        if (evento.target === evento.currentTarget) setAbierto(false);
+    }
 
     return (
         <>
@@ -40,23 +67,89 @@ export default function Cabecera() {
                 Saltar al contenido
             </a>
 
-            {/* El header es relative para que el panel se pegue justo debajo */}
-            <header className="relative">
-                <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
-                    {/* Le doy 48 px de alto al enlace para que sea fácil de tocar y subo todo un poco para alinear las letras con los enlaces */}
-                    <Link
-                        href="/"
-                        aria-label="Ir al inicio de oika"
-                        className="inline-flex min-h-12 -translate-y-1 items-center rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracota"
-                    >
-                        <Imagotipo className="block h-8 w-auto" />
-                    </Link>
+            <header className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
+                <Link href="/" aria-label="Ir al inicio de oika" className={clasesLogo}>
+                    <Imagotipo className="block h-8 w-auto" />
+                </Link>
 
-                    <nav aria-label="Principal" className="hidden lg:block">
-                        <ul className="flex items-center gap-2">
+                <nav aria-label="Principal" className="hidden lg:block">
+                    <ul className="flex items-center gap-2">
+                        {enlaces.map((enlace) => (
+                            <li key={enlace.href}>
+                                <a href={enlace.href} className={`${clasesEnlace} px-3`}>
+                                    {enlace.texto}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+
+                {/* Envuelvo cada botón para que no se estire al ancho completo */}
+                <div className="hidden items-center gap-3 lg:flex">
+                    <div className="shrink-0">
+                        <Boton href="/bienvenida" variante="secundaria">
+                            Soy profesional
+                        </Boton>
+                    </div>
+                    <div className="shrink-0">
+                        <Boton href="/bienvenida">Empezá gratis</Boton>
+                    </div>
+                </div>
+
+                <button
+                    type="button"
+                    onClick={() => setAbierto(true)}
+                    aria-expanded={abierto}
+                    aria-controls="menu-movil"
+                    aria-haspopup="dialog"
+                    aria-label="Abrir menú"
+                    className={`${clasesBotonMenu} lg:hidden`}
+                >
+                    <ListIcon size={28} weight="bold" aria-hidden="true" />
+                </button>
+            </header>
+
+            {/* Uso el diálogo nativo porque el navegador se ocupa del foco y de la tecla Esc, y lo pego a la derecha para que sea un cajón */}
+            <dialog
+                ref={dialogo}
+                id="menu-movil"
+                aria-label="Menú"
+                onClose={() => setAbierto(false)}
+                onClick={alTocarElFondo}
+                className="mt-0 mr-0 mb-0 ml-auto h-dvh max-h-none w-[85%] max-w-sm overflow-y-auto bg-crema p-0 text-cafe backdrop:bg-cafe/50 lg:hidden"
+            >
+                <div className="flex min-h-full flex-col px-6 pb-16 sm:pb-24">
+                    <div className="flex items-center justify-between gap-6 py-4">
+                        <Link
+                            href="/"
+                            onClick={() => setAbierto(false)}
+                            aria-label="Ir al inicio de oika"
+                            className={clasesLogo}
+                        >
+                            <Imagotipo className="block h-8 w-auto" />
+                        </Link>
+
+                        <button
+                            type="button"
+                            onClick={() => setAbierto(false)}
+                            aria-label="Cerrar menú"
+                            className={clasesBotonMenu}
+                        >
+                            <XIcon size={28} weight="bold" aria-hidden="true" />
+                        </button>
+                    </div>
+
+                    <nav aria-label="Principal" className="mt-6">
+                        {/* Separo los enlaces con una línea fina para que la lista se lea más ordenada */}
+                        <ul className="divide-y divide-arena">
                             {enlaces.map((enlace) => (
                                 <li key={enlace.href}>
-                                    <a href={enlace.href} className={clasesEnlace}>
+                                    {/* Cierro el menú al tocar un enlace para que no tape la sección a la que salto */}
+                                    <a
+                                        href={enlace.href}
+                                        onClick={() => setAbierto(false)}
+                                        className={`${clasesEnlace} w-full py-3 text-[1.625rem] sm:text-[2rem]`}
+                                    >
                                         {enlace.texto}
                                     </a>
                                 </li>
@@ -64,69 +157,17 @@ export default function Cabecera() {
                         </ul>
                     </nav>
 
-                    {/* Envuelvo cada botón para que no se estire al ancho completo */}
-                    <div className="hidden items-center gap-3 lg:flex">
-                        <div className="shrink-0">
-                            <Boton href="/bienvenida" variante="secundaria">
-                                Soy profesional
-                            </Boton>
-                        </div>
-                        <div className="shrink-0">
-                            <Boton href="/bienvenida">Empezá gratis</Boton>
-                        </div>
+                    {/* Los botones son lo que tiene que destacar, por eso van grandes y de borde a borde */}
+                    <div className="mt-auto flex flex-col gap-3 pt-8">
+                        <Boton href="/bienvenida" variante="secundaria" tamano="grande">
+                            Soy profesional
+                        </Boton>
+                        <Boton href="/bienvenida" tamano="grande">
+                            Empezá gratis
+                        </Boton>
                     </div>
-
-                    <button
-                        type="button"
-                        onClick={() => setAbierto(!abierto)}
-                        aria-expanded={abierto}
-                        aria-controls="menu-movil"
-                        aria-label={abierto ? 'Cerrar menú' : 'Abrir menú'}
-                        className="inline-flex size-12 items-center justify-center rounded-xl text-mocha focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracota lg:hidden"
-                    >
-                        {abierto ? (
-                            <XIcon size={28} weight="bold" aria-hidden="true" />
-                        ) : (
-                            <ListIcon size={28} weight="bold" aria-hidden="true" />
-                        )}
-                    </button>
                 </div>
-
-                {abierto && (
-                    /* En celu ocupa todo el ancho y en tablet es una tarjeta anclada a la derecha, cerca del botón que la abre */
-                    <div
-                        id="menu-movil"
-                        className="absolute inset-x-0 top-full z-40 bg-crema sm:inset-x-auto sm:right-6 sm:mt-1 sm:w-80 sm:border sm:border-arena lg:hidden"
-                    >
-                        {/* Pongo el tinte de arena sobre un fondo crema sólido para que se vea suave y no se transparente lo que hay debajo */}
-                        <div className="bg-arena/50 px-6 pt-2 pb-6">
-                            <nav aria-label="Menú móvil">
-                                <ul>
-                                    {enlaces.map((enlace) => (
-                                        <li key={enlace.href}>
-                                            {/* Cierro el panel al tocar un enlace para que no tape la sección a la que salto */}
-                                            <a
-                                                href={enlace.href}
-                                                onClick={() => setAbierto(false)}
-                                                className={`${clasesEnlace} w-full`}
-                                            >
-                                                {enlace.texto}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </nav>
-
-                            <div className="mt-4 flex flex-col gap-3">
-                                <Boton href="/bienvenida" variante="secundaria">
-                                    Soy profesional
-                                </Boton>
-                                <Boton href="/bienvenida">Empezá gratis</Boton>
-                            </div>
-                        </div>
-                    </div>
-                )}
-            </header>
+            </dialog>
         </>
     );
 }

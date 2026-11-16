@@ -1,4 +1,5 @@
 import Cabecera from '../Componentes/Landing/Cabecera';
+import ComoFunciona from '../Componentes/Landing/ComoFunciona';
 import Hero from '../Componentes/Landing/Hero';
 import Problema from '../Componentes/Landing/Problema';
 
@@ -11,6 +12,7 @@ export default function Landing() {
             <main id="contenido">
                 <Hero />
                 <Problema />
+                <ComoFunciona />
             </main>
         </>
     );

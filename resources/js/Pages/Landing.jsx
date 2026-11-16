@@ -1,6 +1,7 @@
 import Cabecera from '../Componentes/Landing/Cabecera';
 import ComoFunciona from '../Componentes/Landing/ComoFunciona';
 import Hero from '../Componentes/Landing/Hero';
+import Planificador from '../Componentes/Landing/Planificador';
 import Problema from '../Componentes/Landing/Problema';
 
 export default function Landing() {
@@ -13,6 +14,7 @@ export default function Landing() {
                 <Hero />
                 <Problema />
                 <ComoFunciona />
+                <Planificador />
             </main>
         </>
     );

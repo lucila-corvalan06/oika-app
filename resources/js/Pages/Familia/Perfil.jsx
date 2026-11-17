@@ -12,7 +12,8 @@ export default function Perfil({ nombre, email }) {
         <LayoutFamilia activa="perfil">
             <h1 className="text-3xl font-semibold">Perfil</h1>
 
-            <dl className="mt-6 flex flex-col gap-4">
+            {/* En escritorio pongo los datos en una tarjeta con ancho máximo para que no se estiren por toda la pantalla */}
+            <dl className="mt-6 flex flex-col gap-4 lg:mt-10 lg:max-w-xl lg:rounded-3xl lg:bg-arena/50 lg:p-8">
                 <div>
                     <dt className="text-sm text-mocha">Nombre</dt>
                     <dd className="mt-0.5 text-lg">{nombre}</dd>
@@ -23,7 +24,7 @@ export default function Perfil({ nombre, email }) {
                 </div>
             </dl>
 
-            <div className="mt-10">
+            <div className="mt-10 lg:max-w-xs">
                 <Boton variante="secundaria" onClick={cerrarSesion}>
                     Cerrar sesión
                 </Boton>

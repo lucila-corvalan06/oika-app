@@ -47,12 +47,20 @@ export default function BarraLateral({ activa }) {
             className="sticky top-0 flex h-dvh w-64 shrink-0 flex-col border-r border-mocha/20 bg-crema px-3 py-6"
         >
             <div className="mb-10 px-4">
-                <Imagotipo />
+                {/* Hago que el logo lleve al inicio porque es lo que se espera al tocarlo */}
+                <Link
+                    href="/familia/inicio"
+                    aria-label="oika, ir al inicio"
+                    className="inline-block rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-terracota"
+                >
+                    <Imagotipo />
+                </Link>
             </div>
 
-            <ul className="flex flex-col gap-1">
+            <ul className="flex flex-1 flex-col gap-1">
                 {secciones.map((seccion) => (
-                    <li key={seccion.clave}>
+                    // Mando Perfil al pie con mt-auto porque es mi cuenta y no un lugar de la app
+                    <li key={seccion.clave} className={seccion.clave === 'perfil' ? 'mt-auto' : undefined}>
                         <Item seccion={seccion} activa={seccion.clave === activa} />
                     </li>
                 ))}

@@ -59,14 +59,6 @@ export default function Cabecera() {
 
     return (
         <>
-            {/* Este enlace solo se ve al enfocarlo con el teclado, para saltar directo al contenido */}
-            <a
-                href="#contenido"
-                className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-lg focus:bg-crema focus:px-4 focus:py-3 focus:text-cafe focus:outline-2 focus:outline-terracota"
-            >
-                Saltar al contenido
-            </a>
-
             <header className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
                 <Link href="/" aria-label="Ir al inicio de oika" className={clasesLogo}>
                     <Imagotipo className="block h-8 w-auto" />

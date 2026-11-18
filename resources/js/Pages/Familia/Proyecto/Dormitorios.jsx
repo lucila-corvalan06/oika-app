@@ -20,7 +20,7 @@ export default function Dormitorios({ dormitorios, banos, volverAlResumen }) {
             <IndicadorPaso actual={2} total={6} editando={volverAlResumen} />
 
             <main className="mt-8 flex flex-1 flex-col">
-                <h1 className="text-3xl font-semibold">¿Cuántos dormitorios y baños tendrá tu casa?</h1>
+                <h1 className="text-3xl font-semibold">¿Cuántos dormitorios y baños tendrá tu hogar?</h1>
                 <p className="mt-2">Sumá o quitá según lo que necesites.</p>
 
                 {/* Uso noValidate para que valide solo el servidor y no el navegador */}

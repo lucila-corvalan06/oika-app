@@ -16,7 +16,7 @@ export default function Resumen({ filas }) {
             <IndicadorPaso actual={6} total={6} />
 
             <main className="mt-8 flex flex-1 flex-col">
-                <h1 className="text-3xl font-semibold">Tu casa en una mirada</h1>
+                <h1 className="text-3xl font-semibold">Tu hogar en una mirada</h1>
                 <p className="mt-2">Revisá tus respuestas antes de guardar tu proyecto.</p>
 
                 {/* Uso una lista y no una lista de descripción porque cada fila tiene su propio enlace */}

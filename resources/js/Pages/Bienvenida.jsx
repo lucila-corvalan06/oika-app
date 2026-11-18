@@ -12,7 +12,7 @@ export default function Bienvenida() {
                 {/* La ilustración es decorativa, por eso la escondo de los lectores de pantalla */}
                 <div aria-hidden="true" className="min-h-48 flex-1 rounded-2xl bg-arena" />
 
-                <h1 className="mt-8 text-3xl font-semibold">Construí tu casa a tu ritmo</h1>
+                <h1 className="mt-8 text-3xl font-semibold">Construí tu hogar a tu ritmo</h1>
                 <p className="mt-2">Organizá tu obra por etapas y avanzá según lo que podés ahorrar.</p>
 
                 <div className="mt-8 flex flex-col gap-3">

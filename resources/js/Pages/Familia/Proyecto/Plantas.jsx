@@ -64,7 +64,7 @@ export default function Plantas({ plantas, volverAlResumen }) {
             <IndicadorPaso actual={1} total={6} editando={volverAlResumen} />
 
             <main className="mt-8 flex flex-1 flex-col">
-                <h1 className="text-3xl font-semibold">¿Cuántas plantas tendrá tu casa?</h1>
+                <h1 className="text-3xl font-semibold">¿Cuántas plantas tendrá tu hogar?</h1>
                 <p className="mt-2">Elegí la que más se parezca a tu idea.</p>
 
                 {/* Uso noValidate para que valide solo el servidor y no el navegador */}

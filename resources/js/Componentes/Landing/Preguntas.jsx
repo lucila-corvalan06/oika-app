@@ -2,7 +2,7 @@ import { MinusIcon, PlusIcon } from '@phosphor-icons/react';
 
 const preguntas = [
     {
-        pregunta: '¿oika construye mi casa?',
+        pregunta: '¿oika construye mi hogar?',
         respuesta:
             'No. oika te ayuda a planificar cada etapa, ahorrar para ella y encontrar profesionales. La obra la hacen las personas que vos elijas.',
     },

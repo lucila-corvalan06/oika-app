@@ -2,7 +2,7 @@ import { MinusIcon, PlusIcon } from '@phosphor-icons/react';
 
 // Estas clases las comparten los dos botones para que queden iguales.
 const claseBoton =
-    'flex size-12 items-center justify-center rounded-full border-2 border-cafe text-cafe transition-colors hover:bg-arena/50 active:bg-arena focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracota aria-disabled:opacity-40';
+    'flex size-12 items-center justify-center rounded-full border-2 border-cafe text-cafe transition-colors hover:bg-arena/50 active:border-terracota active:bg-arena active:text-terracota focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracota aria-disabled:opacity-40';
 
 export default function Contador({ id, etiqueta, singular, valor, minimo, maximo, onChange, className = '' }) {
     const enMinimo = valor <= minimo;
@@ -25,7 +25,7 @@ export default function Contador({ id, etiqueta, singular, valor, minimo, maximo
         <div
             role="group"
             aria-labelledby={`${id}-etiqueta`}
-            className={`flex items-center justify-between gap-4 rounded-2xl bg-arena/50 p-4 ${className}`}
+            className={`flex items-center justify-between gap-4 rounded-2xl border-2 border-arena p-4 ${className}`}
         >
             <span id={`${id}-etiqueta`} className="text-lg font-medium">
                 {etiqueta}
@@ -43,7 +43,7 @@ export default function Contador({ id, etiqueta, singular, valor, minimo, maximo
                 </button>
 
                 {/* Con aria-live el lector de pantalla anuncia el número nuevo cada vez que cambia */}
-                <span aria-live="polite" className="w-8 text-center text-2xl font-semibold">
+                <span aria-live="polite" className="w-8 text-center text-2xl font-semibold text-terracota">
                     {valor}
                 </span>
 

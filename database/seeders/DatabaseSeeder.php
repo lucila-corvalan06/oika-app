@@ -15,7 +15,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(EtapaSeeder::class);
+        $this->call([
+            EtapaSeeder::class,
+            ComponenteSeeder::class,
+        ]);
 
         // User::factory(10)->create();
 

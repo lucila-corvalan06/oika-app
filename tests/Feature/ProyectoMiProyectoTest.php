@@ -4,6 +4,9 @@ namespace Tests\Feature;
 
 use App\Enums\Rol;
 use App\Models\User;
+use Database\Seeders\ComponenteSeeder;
+use Database\Seeders\EtapaSeeder;
+use Database\Seeders\ParametroSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
@@ -20,6 +23,9 @@ class ProyectoMiProyectoTest extends TestCase
         parent::setUp();
 
         $this->withoutVite();
+
+        // Mi proyecto usa el motor, que necesita sus tres tablas cargadas
+        $this->seed([EtapaSeeder::class, ComponenteSeeder::class, ParametroSeeder::class]);
     }
 
     // Dejo las respuestas de un proyecto guardado en un solo lugar para no repetirlas en cada test
@@ -51,6 +57,12 @@ class ProyectoMiProyectoTest extends TestCase
                 ->where('filas.1.valor', '3 dormitorios y 1 baño')
                 ->where('filas.3.detalle', 'Extras: Galería y Quincho')
                 ->where('filas.4.valor', 'Media')
+                ->has('calculo.etapas', 5)
+                ->where('calculo.superficie', 95.7)
+                ->where('calculo.costo_total', 263074835)
+                ->where('calculo.semanas_total', 52.5)
+                ->where('calculo.precio_actualizado', 'noviembre 2026')
+                ->where('dosPlantas', true)
             );
     }
 

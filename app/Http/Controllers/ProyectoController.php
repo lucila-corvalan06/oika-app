@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\MotorCalculo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -235,7 +236,7 @@ class ProyectoController extends Controller
     /**
      * Muestra el proyecto que la familia ya guardó, con sus respuestas y las etapas de la obra.
      */
-    public function miProyecto(Request $request): Response|RedirectResponse
+    public function miProyecto(Request $request, MotorCalculo $motor): Response|RedirectResponse
     {
         $proyecto = $request->user()->proyecto;
 
@@ -244,11 +245,18 @@ class ProyectoController extends Controller
             return redirect()->route('familia.inicio');
         }
 
+        $calculo = $motor->calcular($proyecto);
+
+        // Escribo el mes acá con Carbon, que trae los meses en castellano y no se corre por la zona horaria.
+        $calculo['precio_actualizado'] = $calculo['precio_actualizado']?->locale('es')->translatedFormat('F Y');
+
         // Pido solo las siete respuestas para que no viajen el id ni las fechas.
         return Inertia::render('Familia/Proyecto/MiProyecto', [
             'filas' => $this->filasDelProyecto($proyecto->only([
                 'plantas', 'dormitorios', 'banos', 'espacios', 'cochera', 'extras', 'terminacion',
             ])),
+            'calculo' => $calculo,
+            'dosPlantas' => $proyecto->plantas === 2,
         ]);
     }
 

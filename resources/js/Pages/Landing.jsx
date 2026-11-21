@@ -1,3 +1,4 @@
+import { Head } from '@inertiajs/react';
 import Cabecera from '../Componentes/Landing/Cabecera';
 import Cierre from '../Componentes/Landing/Cierre';
 import ComoFunciona from '../Componentes/Landing/ComoFunciona';
@@ -12,6 +13,8 @@ import Problema from '../Componentes/Landing/Problema';
 export default function Landing() {
     return (
         <>
+            <Head title="Tu hogar, a tu ritmo" />
+
             <Cabecera />
 
             <main>

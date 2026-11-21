@@ -1,9 +1,11 @@
+import { Head } from '@inertiajs/react';
 import Boton from '../Componentes/Boton';
 import Imagotipo from '../Componentes/Imagotipo';
 
 export default function Bienvenida() {
     return (
         <div className="mx-auto flex min-h-dvh max-w-md flex-col px-6 py-6">
+            <Head title="Bienvenida" />
             <header>
                 <Imagotipo className="h-8 w-auto" />
             </header>

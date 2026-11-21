@@ -1,4 +1,4 @@
-import { router } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 import Boton from '../../Componentes/Boton';
 import LayoutFamilia from '../../Componentes/LayoutFamilia';
 
@@ -10,6 +10,7 @@ export default function Perfil({ nombre, email }) {
 
     return (
         <LayoutFamilia activa="perfil">
+            <Head title="Perfil" />
             <h1 className="text-3xl font-semibold">Perfil</h1>
 
             {/* En escritorio pongo los datos en una tarjeta con ancho máximo para que no se estiren por toda la pantalla */}

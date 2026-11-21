@@ -1,4 +1,4 @@
-import { Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { BuildingsIcon, HardHatIcon, HouseIcon, TruckIcon } from '@phosphor-icons/react';
 import Boton from '../../Componentes/Boton';
 import IndicadorPaso from '../../Componentes/IndicadorPaso';
@@ -49,6 +49,7 @@ export default function Rol() {
 
     return (
         <div className="mx-auto flex min-h-dvh max-w-md flex-col px-6 py-6">
+            <Head title="Elegí tu rol" />
             <IndicadorPaso actual={1} total={2} />
 
             <main className="mt-8 flex flex-1 flex-col">

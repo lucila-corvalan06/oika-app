@@ -1,4 +1,4 @@
-import { Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import Boton from '../../Componentes/Boton';
 import Campo from '../../Componentes/Campo';
 import Checkbox from '../../Componentes/Checkbox';
@@ -20,6 +20,7 @@ export default function Datos() {
 
     return (
         <div className="mx-auto flex min-h-dvh max-w-md flex-col px-6 py-6">
+            <Head title="Creá tu cuenta" />
             <IndicadorPaso actual={2} total={2} />
 
             <main className="mt-8 flex flex-1 flex-col">

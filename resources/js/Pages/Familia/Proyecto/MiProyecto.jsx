@@ -1,9 +1,12 @@
+import { Head } from '@inertiajs/react';
 import LayoutFamilia from '../../../Componentes/LayoutFamilia';
 import ListaEtapas from '../../../Componentes/ListaEtapas';
 
 export default function MiProyecto({ filas }) {
     return (
         <LayoutFamilia activa="proyecto">
+            <Head title="Mi proyecto" />
+
             <h1 className="text-3xl font-semibold">Mi proyecto</h1>
             <p className="mt-2">Tu hogar, etapa por etapa.</p>
 
@@ -22,7 +25,6 @@ export default function MiProyecto({ filas }) {
                     {/* Uso una lista de descripción porque son pares de título y valor que acá no se editan */}
                     <dl className="mt-3 grid grid-cols-2 gap-2.5">
                         {filas.map((fila, indice) => (
-                            // La última tarjeta ocupa las dos columnas para que la grilla no quede coja con cinco respuestas
                             <div
                                 key={fila.clave}
                                 className={`min-w-0 rounded-2xl bg-arena/50 px-3.5 py-3 ${indice === filas.length - 1 ? 'col-span-2' : ''}`}

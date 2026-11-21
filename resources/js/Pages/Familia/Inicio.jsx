@@ -1,3 +1,4 @@
+import { Head } from '@inertiajs/react';
 import Boton from '../../Componentes/Boton';
 import LayoutFamilia from '../../Componentes/LayoutFamilia';
 import ListaEtapas from '../../Componentes/ListaEtapas';
@@ -5,6 +6,7 @@ import ListaEtapas from '../../Componentes/ListaEtapas';
 export default function Inicio({ nombre, tieneProyecto }) {
     return (
         <LayoutFamilia activa="inicio">
+            <Head title="Inicio" />
             <h1 className="text-3xl font-semibold">Hola, {nombre}</h1>
             <p className="mt-2">Armemos tu hogar etapa por etapa, a tu ritmo.</p>
 

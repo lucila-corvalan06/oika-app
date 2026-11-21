@@ -1,4 +1,4 @@
-import { Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import Boton from '../../../Componentes/Boton';
 import IndicadorPaso from '../../../Componentes/IndicadorPaso';
 
@@ -13,6 +13,7 @@ export default function Resumen({ filas }) {
 
     return (
         <div className="mx-auto flex min-h-dvh max-w-md flex-col px-6 py-6">
+            <Head title="Tu hogar en una mirada" />
             <IndicadorPaso actual={6} total={6} />
 
             <main className="mt-8 flex flex-1 flex-col">

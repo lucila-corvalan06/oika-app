@@ -1,4 +1,4 @@
-import { Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import Boton from '../../Componentes/Boton';
 import Campo from '../../Componentes/Campo';
 import Checkbox from '../../Componentes/Checkbox';
@@ -18,6 +18,7 @@ export default function Ingresar() {
 
     return (
         <div className="mx-auto flex min-h-dvh max-w-md flex-col px-6 py-6">
+            <Head title="Iniciar sesión" />
             <header>
                 <Imagotipo className="h-8 w-auto" />
             </header>

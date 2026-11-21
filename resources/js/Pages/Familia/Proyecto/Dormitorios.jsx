@@ -1,4 +1,4 @@
-import { useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import BotonesPie from '../../../Componentes/BotonesPie';
 import Contador from '../../../Componentes/Contador';
 import IndicadorPaso from '../../../Componentes/IndicadorPaso';
@@ -17,6 +17,7 @@ export default function Dormitorios({ dormitorios, banos, volverAlResumen }) {
 
     return (
         <div className="mx-auto flex min-h-dvh max-w-md flex-col px-6 py-6">
+            <Head title="Dormitorios y baños" />
             <IndicadorPaso actual={2} total={6} editando={volverAlResumen} />
 
             <main className="mt-8 flex flex-1 flex-col">

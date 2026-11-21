@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             EtapaSeeder::class,
             ComponenteSeeder::class,
+            ParametroSeeder::class,
         ]);
 
         // User::factory(10)->create();

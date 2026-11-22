@@ -32,4 +32,25 @@ class EtapaSeederTest extends TestCase
 
         $this->assertSame(5, Etapa::count());
     }
+
+    public function test_cada_etapa_tiene_su_descripcion(): void
+    {
+        $this->seed(EtapaSeeder::class);
+
+        $this->assertSame(0, Etapa::whereNull('descripcion')->count());
+    }
+
+    public function test_solo_techo_instalaciones_y_terminaciones_tienen_esperas(): void
+    {
+        $this->seed(EtapaSeeder::class);
+
+        // Si el cast no funcionara, las esperas llegarían como texto y assertCount fallaría
+        $etapas = Etapa::orderBy('orden')->get();
+
+        $this->assertNull($etapas[0]->esperas);
+        $this->assertNull($etapas[1]->esperas);
+        $this->assertCount(2, $etapas[2]->esperas);
+        $this->assertCount(2, $etapas[3]->esperas);
+        $this->assertCount(1, $etapas[4]->esperas);
+    }
 }

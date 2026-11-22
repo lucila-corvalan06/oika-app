@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class EtapaSeeder extends Seeder
 {
     /**
-     * Carga o actualiza las etapas en la tabla etapas.
+     * Carga las etapas en la tabla etapas, o las actualiza si ya estaban cargadas.
      */
     public function run(): void
     {
@@ -27,7 +27,7 @@ class EtapaSeeder extends Seeder
                 'id' => 1,
                 'orden' => 1,
                 'nombre' => 'Cimientos y contrapiso',
-                'descripcion' => 'Es la base de tu hogar: lo que va bajo tierra y sostiene todo lo demás.',
+                'descripcion' => 'Es la base de tu hogar. Va bajo tierra y sostiene todo lo demás.',
                 'esperas' => null,
                 'porcentaje_costo' => 10,
                 'semanas_trabajo' => 3.2,
@@ -51,7 +51,7 @@ class EtapaSeeder extends Seeder
                 'nombre' => 'Techo y losa',
                 'descripcion' => 'Se hace el techo de tu hogar y se lo protege de la lluvia.',
                 'esperas' => json_encode([
-                    'La losa queda sostenida con puntales (soportes de madera o metal) hasta que el hormigón se endurece. No se sacan antes, aunque parezca firme.',
+                    'La losa queda sostenida con puntales, que son soportes de madera o metal, hasta que el hormigón se endurece. No se sacan antes, aunque parezca firme.',
                     'La membrana se coloca recién cuando lo que está debajo está bien seco.',
                 ]),
                 'porcentaje_costo' => 25,
@@ -77,7 +77,7 @@ class EtapaSeeder extends Seeder
                 'id' => 5,
                 'orden' => 5,
                 'nombre' => 'Terminaciones',
-                'descripcion' => 'Es la última etapa: se dejan lisas las paredes, se colocan los pisos, las puertas y las ventanas, y se pinta.',
+                'descripcion' => 'Es la última etapa. Se dejan lisas las paredes, se colocan los pisos, las puertas y las ventanas, y se pinta.',
                 'esperas' => json_encode([
                     'La pintura va al final, con todo lo demás terminado, para no mancharla ni tener que repetirla.',
                 ]),

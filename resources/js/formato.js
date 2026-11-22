@@ -27,7 +27,7 @@ export function meses(semanas) {
     }
 
     const enteros = Math.floor(redondeado);
-    const texto = enteros === 1 ? 'Un mes' : `Unos ${enteros} meses`;
+    const texto = enteros === 1 ? 'Aproximadamente un mes' : `Aproximadamente ${enteros} meses`;
 
     return redondeado > enteros ? `${texto} y medio` : texto;
 }

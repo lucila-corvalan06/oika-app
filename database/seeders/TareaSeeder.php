@@ -33,7 +33,7 @@ class TareaSeeder extends Seeder
                 'etapa_id' => 1, // Cimientos y contrapiso.
                 'orden' => 2,
                 'nombre' => 'Bases o platea',
-                'descripcion' => 'Se hacen los cimientos de hormigón que sostienen el peso de tu hogar. Pueden ser bases unidas entre sí o una platea (una losa apoyada sobre el suelo).',
+                'descripcion' => 'Se hacen los cimientos de hormigón que sostienen el peso de tu hogar. Pueden ser bases unidas entre sí o una platea, que es una losa apoyada sobre el suelo.',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -69,7 +69,7 @@ class TareaSeeder extends Seeder
                 'etapa_id' => 3, // Techo y losa.
                 'orden' => 1,
                 'nombre' => 'Columnas, vigas y losa',
-                'descripcion' => 'Se llenan con hormigón las columnas y las vigas que rodean las paredes, y se hace la losa (el techo de hormigón).',
+                'descripcion' => 'Se llenan con hormigón las columnas y las vigas que rodean las paredes. Después se hace la losa, que es el techo de hormigón.',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

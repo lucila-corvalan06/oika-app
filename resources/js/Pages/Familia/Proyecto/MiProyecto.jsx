@@ -30,6 +30,7 @@ export default function MiProyecto({ filas, calculo, dosPlantas }) {
                         Tu hogar
                     </dt>
                     <dd className="mt-1 text-2xl font-semibold">{numero(calculo.superficie)} m²</dd>
+                    <dd className="text-sm text-mocha">El tamaño de tu hogar, según lo que elegiste</dd>
                 </div>
 
                 <div className="rounded-3xl bg-arena/50 p-6">

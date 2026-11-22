@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\MotorCalculo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -13,15 +14,30 @@ use Inertia\Response;
 class FamiliaController extends Controller
 {
     /**
-     * Muestra el inicio de la familia con su primer nombre y si ya guardó su proyecto.
+     * Muestra el inicio de la familia con su primer nombre, su próximo paso y el resumen de su proyecto.
      */
-    public function inicio(Request $request): Response
+    public function inicio(Request $request, MotorCalculo $motor): Response
     {
+        $proyecto = $request->user()->proyecto;
+
+        // Sin proyecto guardado no hay nada que calcular, así que la pantalla recibe null y muestra cómo empezar
+        $calculo = null;
+        $proximaEtapa = null;
+
+        if ($proyecto !== null) {
+            $calculo = $motor->calcular($proyecto);
+            $calculo['precio_actualizado'] = $calculo['precio_actualizado']?->locale('es')->translatedFormat('F Y');
+
+            // Por ahora la obra arranca siempre por la primera etapa. Cuando haya ahorro, acá va la primera que no esté cubierta
+            $proximaEtapa = $calculo['etapas'][0];
+        }
+
         // Mando solo el primer nombre y lo normalizo para que el saludo se vea igual aunque lo hayan escrito en minúsculas o en mayúsculas
         return Inertia::render('Familia/Inicio', [
             'nombre' => Str::ucfirst(Str::lower(Str::before($request->user()->name, ' '))),
-            // Mando solo si existe y no el proyecto entero, porque el Inicio solo decide qué tarjeta mostrar
-            'tieneProyecto' => $request->user()->proyecto()->exists(),
+            'tieneProyecto' => $proyecto !== null,
+            'calculo' => $calculo,
+            'proximaEtapa' => $proximaEtapa,
         ]);
     }
 

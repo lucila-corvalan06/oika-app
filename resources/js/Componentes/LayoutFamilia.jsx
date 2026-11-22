@@ -28,7 +28,8 @@ export default function LayoutFamilia({ activa, children }) {
                     {children}
                 </main>
 
-                <div className="lg:hidden">
+                {/* Uso sticky y no fixed para que la barra quede siempre a la vista sin tapar el final del contenido */}
+                <div className="sticky bottom-0 z-10 lg:hidden">
                     <NavegacionInferior activa={activa} />
                 </div>
             </div>

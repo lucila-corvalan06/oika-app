@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Etapa;
 use App\Services\MotorCalculo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -257,6 +258,38 @@ class ProyectoController extends Controller
             ])),
             'calculo' => $calculo,
             'dosPlantas' => $proyecto->plantas === 2,
+        ]);
+    }
+
+    /**
+     * Muestra el detalle de una etapa de la obra, con sus tareas y lo que cuesta en el hogar de la familia.
+     */
+    public function etapa(Request $request, Etapa $etapa, MotorCalculo $motor): Response|RedirectResponse
+    {
+        $proyecto = $request->user()->proyecto;
+
+        if ($proyecto === null) {
+            return redirect()->route('familia.inicio');
+        }
+
+        $calculo = $motor->calcular($proyecto);
+
+        // Saco el costo de esta etapa del motor para que coincida con el que la familia ve en Mi proyecto.
+        $calculada = collect($calculo['etapas'])->firstWhere('orden', $etapa->orden);
+
+        return Inertia::render('Familia/Proyecto/Etapa', [
+            'etapa' => $etapa->only(['orden', 'nombre', 'descripcion', 'esperas']),
+            'tareas' => $etapa->tareas->map(fn ($tarea) => $tarea->only(['orden', 'nombre', 'descripcion'])),
+            'costo' => $calculada['costo'],
+            'semanas' => $calculada['semanas'],
+            // Lo calculo con los costos del motor y no con la tabla porque en dos plantas el reparto cambia.
+            'porcentaje' => (int) round($calculada['costo'] / $calculo['costo_total'] * 100),
+            'precioActualizado' => $calculo['precio_actualizado']?->locale('es')->translatedFormat('F Y'),
+            // Mando las 5 etapas para el recorrido de arriba y los botones de anterior y siguiente.
+            'recorrido' => array_map(
+                fn ($item) => ['orden' => $item['orden'], 'nombre' => $item['nombre']],
+                $calculo['etapas'],
+            ),
         ]);
     }
 

@@ -59,4 +59,6 @@ Route::middleware(['auth', 'cuenta.lugar:usuario_final'])->group(function () {
     Route::post('/familia/proyecto/resumen', [ProyectoController::class, 'guardarResumen'])->name('familia.proyecto.resumen.guardar');
     // Dejo /familia/proyecto sin paso al final porque es el proyecto ya guardado, el que abre la sección Mi proyecto.
     Route::get('/familia/proyecto', [ProyectoController::class, 'miProyecto'])->name('familia.proyecto.ver');
+    // Busco la etapa por su orden y no por el id porque es el número que ve la familia; si no existe, Laravel da 404.
+    Route::get('/familia/proyecto/etapas/{etapa:orden}', [ProyectoController::class, 'etapa'])->name('familia.proyecto.etapa');
 });

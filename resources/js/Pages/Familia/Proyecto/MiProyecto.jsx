@@ -1,10 +1,12 @@
-import { Head } from '@inertiajs/react';
-import { ClockIcon, FlagIcon, RulerIcon } from '@phosphor-icons/react';
+import { Head, Link } from '@inertiajs/react';
+import { CaretRightIcon, ClockIcon, FlagIcon, RulerIcon } from '@phosphor-icons/react';
+import Boton from '../../../Componentes/Boton';
 import LayoutFamilia from '../../../Componentes/LayoutFamilia';
 import { meses, numero, pesos } from '../../../formato';
 
 export default function MiProyecto({ filas, calculo, dosPlantas }) {
     const mesesTotales = meses(calculo.semanas_total);
+    const primeraEtapa = calculo.etapas[0];
 
     return (
         <LayoutFamilia activa="proyecto">
@@ -55,13 +57,20 @@ export default function MiProyecto({ filas, calculo, dosPlantas }) {
             <div className="mt-3 grid grid-cols-1 gap-8 lg:grid-cols-3 lg:items-start">
                 <ol className="flex flex-col gap-2 lg:col-span-2">
                     {calculo.etapas.map((etapa) => (
-                        <li key={etapa.orden} className="flex items-center gap-4 rounded-2xl bg-arena/50 px-5 py-4">
-                            <span className="w-5 font-semibold text-terracota-oscuro">{etapa.orden}</span>
-                            <span className="flex-1">{etapa.nombre}</span>
-                            <span className="text-right">
-                                <span className="block font-medium">{pesos(etapa.costo)}</span>
-                                <span className="block text-sm text-mocha">{numero(etapa.semanas)} semanas</span>
-                            </span>
+                        <li key={etapa.orden}>
+                            {/* Hago enlace la tarjeta entera para que el área para tocar sea grande, sobre todo en el celu */}
+                            <Link
+                                href={`/familia/proyecto/etapas/${etapa.orden}`}
+                                className="flex items-center gap-4 rounded-2xl bg-arena/50 px-5 py-4 hover:bg-arena"
+                            >
+                                <span className="w-5 font-semibold text-terracota-oscuro">{etapa.orden}</span>
+                                <span className="flex-1">{etapa.nombre}</span>
+                                <span className="text-right">
+                                    <span className="block font-medium">{pesos(etapa.costo)}</span>
+                                    <span className="block text-sm text-mocha">{numero(etapa.semanas)} semanas</span>
+                                </span>
+                                <CaretRightIcon size={18} weight="bold" aria-hidden="true" />
+                            </Link>
                         </li>
                     ))}
                 </ol>
@@ -76,8 +85,11 @@ export default function MiProyecto({ filas, calculo, dosPlantas }) {
                             Por dónde empezar
                         </h2>
                         <p className="mt-2">
-                            No tenés que juntar todo junto: tu obra arranca por {calculo.etapas[0].nombre}.
+                            No tenés que juntar todo junto. Tu obra arranca por {primeraEtapa.nombre}.
                         </p>
+                        <Boton href={`/familia/proyecto/etapas/${primeraEtapa.orden}`} className="mt-4">
+                            Ver la etapa {primeraEtapa.orden}
+                        </Boton>
                     </section>
 
                     <section aria-labelledby="titulo-respuestas" className="rounded-3xl bg-arena/50 p-5">

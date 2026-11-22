@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -17,6 +19,7 @@ use Illuminate\Support\Carbon;
  * @property float $semanas_trabajo
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read Collection<int, Tarea> $tareas
  */
 class Etapa extends Model
 {
@@ -38,5 +41,14 @@ class Etapa extends Model
             // Sin esto el decimal me llega como texto, y el motor necesita un número para hacer cuentas.
             'semanas_trabajo' => 'float',
         ];
+    }
+
+    /**
+     * Tareas de la etapa, en el orden en que se hacen.
+     */
+    public function tareas(): HasMany
+    {
+        // Ordeno acá para que las tareas lleguen siempre en orden, sin repetirlo en cada consulta.
+        return $this->hasMany(Tarea::class)->orderBy('orden');
     }
 }

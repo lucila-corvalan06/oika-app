@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             EtapaSeeder::class,
+            TareaSeeder::class,
             ComponenteSeeder::class,
             ParametroSeeder::class,
         ]);

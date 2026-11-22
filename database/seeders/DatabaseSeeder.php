@@ -2,16 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+/**
+ * Carga los datos que Oika necesita para funcionar.
+ */
 class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
     /**
-     * Seed the application's database.
+     * Llama a los seeders en orden, primero las etapas y después sus tareas.
      */
     public function run(): void
     {
@@ -20,13 +22,6 @@ class DatabaseSeeder extends Seeder
             TareaSeeder::class,
             ComponenteSeeder::class,
             ParametroSeeder::class,
-        ]);
-
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
         ]);
     }
 }

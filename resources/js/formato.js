@@ -31,3 +31,9 @@ export function meses(semanas) {
 
     return redondeado > enteros ? `${texto} y medio` : texto;
 }
+
+// Pego las palabras cortas a la que sigue para que no queden colgadas al final de una línea
+// Uso \s antes de la palabra para no tocar palabras más largas, como "Delantal"
+export function pegarConectores(texto) {
+    return texto.replace(/(?<=^|\s)(a|al|con|de|del|e|el|en|la|las|lo|los|o|por|su|tu|u|un|una|y)\s/gi, '$1\u00A0');
+}

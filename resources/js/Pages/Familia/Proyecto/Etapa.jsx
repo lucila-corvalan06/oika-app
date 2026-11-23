@@ -1,13 +1,7 @@
 import { Head, Link } from '@inertiajs/react';
 import { ArrowLeftIcon, ArrowRightIcon, ClockIcon, HourglassIcon } from '@phosphor-icons/react';
 import LayoutFamilia from '../../../Componentes/LayoutFamilia';
-import { meses, numero, pesos } from '../../../formato';
-
-
-// Pego la palabra corta al nombre que sigue para que no quede colgada al final de una línea
-function pegarConectores(texto) {
-    return texto.replace(/ (y|de|la|el) /g, ' $1\u00A0');
-}
+import { meses, numero, pegarConectores, pesos } from '../../../formato';
 
 export default function Etapa({ etapa, tareas, costo, semanas, porcentaje, precioActualizado, recorrido }) {
     const mesesEtapa = meses(semanas);

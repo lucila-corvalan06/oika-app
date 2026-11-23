@@ -24,7 +24,8 @@ export default function Campo({
 
     return (
         <div className={className}>
-            <label htmlFor={id} className="mb-1 block text-sm font-medium">
+            {/* Desde tablet agrando los textos y el alto para que el formulario acompañe a los títulos más grandes */}
+            <label htmlFor={id} className="mb-1 block text-sm font-medium md:text-base">
                 {etiqueta}
             </label>
 
@@ -36,7 +37,7 @@ export default function Campo({
                     onChange={onChange}
                     aria-invalid={error ? 'true' : undefined}
                     aria-describedby={descripcion}
-                    className={`min-h-12 w-full rounded-xl border-2 bg-arena/30 text-base placeholder:text-mocha/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracota ${
+                    className={`min-h-12 w-full rounded-xl border-2 bg-arena/30 text-base placeholder:text-mocha/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracota md:min-h-14 md:text-lg ${
                         esContrasena ? 'pl-4 pr-12' : 'px-4'
                     } ${error ? 'border-negativo' : 'border-mocha/70'}`}
                     {...resto}
@@ -60,13 +61,13 @@ export default function Campo({
             </div>
 
             {ayuda && (
-                <p id={idAyuda} className="mt-1 text-sm text-mocha">
+                <p id={idAyuda} className="mt-1 text-sm text-mocha md:text-base">
                     {ayuda}
                 </p>
             )}
 
             {error && (
-                <p id={idError} role="alert" className="mt-1 text-sm text-negativo">
+                <p id={idError} role="alert" className="mt-1 text-sm text-negativo md:text-base">
                     {error}
                 </p>
             )}

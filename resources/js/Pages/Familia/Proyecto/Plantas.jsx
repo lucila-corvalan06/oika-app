@@ -60,17 +60,24 @@ export default function Plantas({ plantas, volverAlResumen }) {
     }
 
     return (
-        <div className="mx-auto flex min-h-dvh max-w-md flex-col px-6 py-6">
+        <div className="mx-auto flex min-h-dvh max-w-md flex-col px-6 py-6 md:max-w-none md:px-12 md:py-10 xl:max-w-5xl xl:px-0 xl:py-12">
             <Head title="Plantas" />
             <IndicadorPaso actual={1} total={6} editando={volverAlResumen} />
 
-            <main className="mt-8 flex flex-1 flex-col">
-                <h1 className="text-3xl font-semibold">¿Cuántas plantas tendrá tu hogar?</h1>
-                <p className="mt-2">Elegí la que más se parezca a tu idea.</p>
+            {/* Desde tablet centro la pregunta, las opciones y los botones en el alto que queda, igual que en elegir rol */}
+            <main className="mt-8 flex flex-1 flex-col md:mt-10 md:justify-center">
+                {/* Uno "tu" con "hogar" para que "hogar?" no quede sola en la última línea */}
+                <h1 className="text-3xl font-semibold md:text-center md:text-5xl md:leading-tight md:font-medium md:tracking-tight">
+                    ¿Cuántas plantas tendrá tu&nbsp;hogar?
+                </h1>
+                <p className="mt-2 md:mt-3 md:text-center md:text-xl md:text-mocha">
+                    Elegí la que más se parezca a tu idea.
+                </p>
 
                 {/* Uso noValidate para que valide solo el servidor y no el navegador */}
-                <form onSubmit={enviar} noValidate className="mt-6 flex flex-1 flex-col">
-                    <fieldset className="flex flex-col gap-3">
+                <form onSubmit={enviar} noValidate className="mt-6 flex flex-1 flex-col md:mt-10 md:flex-none">
+                    {/* Hasta tablet van una abajo de la otra; en compu lado a lado porque son solo dos */}
+                    <fieldset className="flex flex-col gap-3 md:gap-4 xl:mx-auto xl:grid xl:w-full xl:max-w-3xl xl:grid-cols-2">
                         <legend className="sr-only">Cantidad de plantas</legend>
                         {opciones.map((opcion) => (
                             <TarjetaRol
@@ -83,12 +90,13 @@ export default function Plantas({ plantas, volverAlResumen }) {
                                 icono={opcion.icono}
                                 checked={data.plantas === opcion.valor}
                                 onChange={() => setData('plantas', opcion.valor)}
+                                paradaDesde="xl"
                             />
                         ))}
                     </fieldset>
 
                     {errors.plantas && (
-                        <p role="alert" className="mt-2 text-sm text-negativo">
+                        <p role="alert" className="mt-2 text-sm text-negativo md:text-base">
                             {errors.plantas}
                         </p>
                     )}

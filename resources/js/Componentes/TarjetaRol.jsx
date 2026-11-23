@@ -1,3 +1,19 @@
+// Junto las clases que paran la tarjeta según desde qué tamaño se para.
+const parada = {
+    md: {
+        tarjeta: 'md:grid md:grid-cols-[1fr_auto] md:content-start md:items-start md:gap-y-5',
+        textos: 'md:col-span-2 md:row-start-2',
+        circulo: 'md:col-start-2 md:row-start-1',
+    },
+    xl: {
+        tarjeta: 'xl:grid xl:grid-cols-[1fr_auto] xl:content-start xl:items-start xl:gap-y-5',
+        textos: 'xl:col-span-2 xl:row-start-2',
+        circulo: 'xl:col-start-2 xl:row-start-1',
+    },
+    // Para tarjetas sin ícono, que paradas dejarían un hueco arriba
+    nunca: { tarjeta: '', textos: '', circulo: '' },
+};
+
 export default function TarjetaRol({
     id,
     name,
@@ -8,12 +24,15 @@ export default function TarjetaRol({
     checked,
     onChange,
     deshabilitada = false,
+    paradaDesde = 'md',
 }) {
+    const clases = parada[paradaDesde];
+
     return (
-        // Desde tablet paso la tarjeta a grilla para pararla: ícono y círculo arriba, textos abajo
+        // Acostada va en fila; parada pasa a grilla con ícono y círculo arriba y los textos abajo
         <label
             htmlFor={id}
-            className={`flex min-h-12 items-center gap-4 rounded-2xl border-2 p-4 md:grid md:grid-cols-[1fr_auto] md:content-start md:items-start md:gap-y-5 md:p-5 ${
+            className={`flex min-h-12 items-center gap-4 rounded-2xl border-2 p-4 md:p-5 ${clases.tarjeta} ${
                 checked ? 'border-terracota' : 'border-arena'
             } ${deshabilitada ? 'cursor-not-allowed' : 'cursor-pointer'}`}
         >
@@ -29,7 +48,7 @@ export default function TarjetaRol({
                 </span>
             )}
 
-            <span className="flex-1 md:col-span-2 md:row-start-2">
+            <span className={`flex-1 ${clases.textos}`}>
                 {/* Atenúo solo el texto, así la etiqueta "Próximamente" se sigue leyendo bien */}
                 <span className={deshabilitada ? 'opacity-60' : ''}>
                     <span className="block font-medium md:text-lg">{titulo}</span>
@@ -43,7 +62,7 @@ export default function TarjetaRol({
                 )}
             </span>
 
-            <span className="relative flex size-6 shrink-0 items-center justify-center md:col-start-2 md:row-start-1">
+            <span className={`relative flex size-6 shrink-0 items-center justify-center ${clases.circulo}`}>
                 <input
                     id={id}
                     type="radio"
@@ -54,6 +73,7 @@ export default function TarjetaRol({
                     disabled={deshabilitada}
                     className="peer size-6 appearance-none rounded-full border-2 border-mocha/70 checked:border-terracota focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracota disabled:opacity-60"
                 />
+                {/* Dibujo yo el punto del medio porque con appearance-none el navegador no lo pone */}
                 <span
                     aria-hidden="true"
                     className="pointer-events-none absolute size-3 rounded-full bg-terracota opacity-0 peer-checked:opacity-100"

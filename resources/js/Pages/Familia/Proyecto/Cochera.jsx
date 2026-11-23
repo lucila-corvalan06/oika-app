@@ -40,67 +40,74 @@ export default function Cochera({ cochera, extras, volverAlResumen }) {
     }
 
     return (
-        <div className="mx-auto flex min-h-dvh max-w-md flex-col px-6 py-6">
+        <div className="mx-auto flex min-h-dvh max-w-md flex-col px-6 py-6 md:max-w-none md:px-12 md:py-10 xl:max-w-5xl xl:px-0 xl:py-12">
             <Head title="Cochera y extras" />
             <IndicadorPaso actual={4} total={6} editando={volverAlResumen} />
 
-            <main className="mt-8 flex flex-1 flex-col">
-                <h1 className="text-3xl font-semibold">¿Qué más va a tener tu hogar?</h1>
-                <p className="mt-2">Elegí lo que quieras sumar a tu hogar.</p>
+            {/* Desde tablet centro la pregunta, las secciones y los botones en el alto que queda, igual que en plantas */}
+            <main className="mt-8 flex flex-1 flex-col md:mt-10 md:justify-center">
+                {/* Uno "tu" con "hogar" para que "hogar?" no quede sola en la última línea */}
+                <h1 className="text-3xl font-semibold md:text-center md:text-5xl md:leading-tight md:font-medium md:tracking-tight">
+                    ¿Qué más va a tener tu&nbsp;hogar?
+                </h1>
+                <p className="mt-2 md:mt-3 md:text-center md:text-xl md:text-mocha">Elegí lo que quieras sumar a tu hogar.</p>
 
                 {/* Uso noValidate para que valide solo el servidor y no el navegador */}
-                <form onSubmit={enviar} noValidate className="mt-6 flex flex-1 flex-col">
-                    <section>
-                        <h2 id="titulo-cochera" className="text-lg font-semibold">
-                            Cochera
-                        </h2>
-                        <div
-                            role="radiogroup"
-                            aria-labelledby="titulo-cochera"
-                            className="mt-2 grid grid-cols-3 gap-2"
-                        >
-                            {opcionesCochera.map((opcion) => (
-                                <OpcionCorta
-                                    key={opcion.valor}
-                                    id={`cochera-${opcion.valor}`}
-                                    name="cochera"
-                                    value={opcion.valor}
-                                    etiqueta={opcion.etiqueta}
-                                    checked={data.cochera === opcion.valor}
-                                    onChange={() => setData('cochera', opcion.valor)}
-                                />
-                            ))}
-                        </div>
-                        {errors.cochera && (
-                            <p role="alert" className="mt-2 text-sm text-negativo">
-                                {errors.cochera}
-                            </p>
-                        )}
-                    </section>
+                <form onSubmit={enviar} noValidate className="mt-6 flex flex-1 flex-col md:mt-10 md:flex-none">
+                    {/* En compu angosto y centro las dos secciones, como en dormitorios y espacios */}
+                    <div className="xl:mx-auto xl:w-full xl:max-w-xl">
+                        <section>
+                            <h2 id="titulo-cochera" className="text-lg font-semibold md:text-xl">
+                                Cochera
+                            </h2>
+                            <div
+                                role="radiogroup"
+                                aria-labelledby="titulo-cochera"
+                                className="mt-2 grid grid-cols-3 gap-2 md:mt-3 md:gap-3"
+                            >
+                                {opcionesCochera.map((opcion) => (
+                                    <OpcionCorta
+                                        key={opcion.valor}
+                                        id={`cochera-${opcion.valor}`}
+                                        name="cochera"
+                                        value={opcion.valor}
+                                        etiqueta={opcion.etiqueta}
+                                        checked={data.cochera === opcion.valor}
+                                        onChange={() => setData('cochera', opcion.valor)}
+                                    />
+                                ))}
+                            </div>
+                            {errors.cochera && (
+                                <p role="alert" className="mt-2 text-sm text-negativo md:text-base">
+                                    {errors.cochera}
+                                </p>
+                            )}
+                        </section>
 
-                    <section className="mt-6">
-                        <h2 id="titulo-extras" className="text-lg font-semibold">
-                            Espacios extra
-                        </h2>
-                        <p className="text-sm">Podés elegir más de uno, o ninguno.</p>
-                        <div role="group" aria-labelledby="titulo-extras" className="mt-2 flex flex-col gap-2">
-                            {extrasDisponibles.map((extra) => (
-                                <TarjetaCasilla
-                                    key={extra.valor}
-                                    id={`extra-${extra.valor}`}
-                                    titulo={extra.titulo}
-                                    descripcion={extra.descripcion}
-                                    checked={data.extras.includes(extra.valor)}
-                                    onChange={() => alternarExtra(extra.valor)}
-                                />
-                            ))}
-                        </div>
-                        {errors.extras && (
-                            <p role="alert" className="mt-2 text-sm text-negativo">
-                                {errors.extras}
-                            </p>
-                        )}
-                    </section>
+                        <section className="mt-6 md:mt-8">
+                            <h2 id="titulo-extras" className="text-lg font-semibold md:text-xl">
+                                Espacios extra
+                            </h2>
+                            <p className="text-sm md:text-base">Podés elegir más de uno, o ninguno.</p>
+                            <div role="group" aria-labelledby="titulo-extras" className="mt-2 flex flex-col gap-2 md:mt-3 md:gap-3">
+                                {extrasDisponibles.map((extra) => (
+                                    <TarjetaCasilla
+                                        key={extra.valor}
+                                        id={`extra-${extra.valor}`}
+                                        titulo={extra.titulo}
+                                        descripcion={extra.descripcion}
+                                        checked={data.extras.includes(extra.valor)}
+                                        onChange={() => alternarExtra(extra.valor)}
+                                    />
+                                ))}
+                            </div>
+                            {errors.extras && (
+                                <p role="alert" className="mt-2 text-sm text-negativo md:text-base">
+                                    {errors.extras}
+                                </p>
+                            )}
+                        </section>
+                    </div>
 
                     <BotonesPie volverA="/familia/proyecto/espacios" editando={volverAlResumen} desactivado={processing} />
                 </form>

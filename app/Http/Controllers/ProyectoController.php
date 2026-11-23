@@ -235,15 +235,18 @@ class ProyectoController extends Controller
     }
 
     /**
-     * Muestra el proyecto que la familia ya guardó, con sus respuestas y las etapas de la obra.
+     * Muestra el proyecto que la familia ya guardó, o un aviso para armarlo si todavía no tiene uno.
      */
-    public function miProyecto(Request $request, MotorCalculo $motor): Response|RedirectResponse
+    public function miProyecto(Request $request, MotorCalculo $motor): Response
     {
         $proyecto = $request->user()->proyecto;
 
-        // Sin proyecto guardado no hay nada que mostrar, así que la mando al Inicio donde puede armarlo.
+        // Sin proyecto muestro un aviso para armarlo, así el botón del menú siempre lleva a algún lado.
         if ($proyecto === null) {
-            return redirect()->route('familia.inicio');
+            return Inertia::render('Familia/Proyecto/MiProyecto', [
+                'calculo' => null,
+                'armar' => route('familia.proyecto.plantas.form', [], false),
+            ]);
         }
 
         $calculo = $motor->calcular($proyecto);

@@ -66,13 +66,19 @@ class ProyectoMiProyectoTest extends TestCase
             );
     }
 
-    public function test_sin_proyecto_guardado_manda_al_inicio(): void
+    public function test_sin_proyecto_guardado_muestra_el_aviso_para_armarlo(): void
     {
         $familia = User::factory()->create(['rol' => Rol::UsuarioFinal]);
 
+        // Sin proyecto la pantalla abre igual, con el aviso y el enlace al primer paso
         $this->actingAs($familia)
             ->get(route('familia.proyecto.ver'))
-            ->assertRedirect(route('familia.inicio'));
+            ->assertOk()
+            ->assertInertia(fn (Assert $pagina) => $pagina
+                ->component('Familia/Proyecto/MiProyecto')
+                ->where('calculo', null)
+                ->where('armar', route('familia.proyecto.plantas.form', [], false))
+            );
     }
 
     public function test_una_familia_no_ve_el_proyecto_de_otra(): void
@@ -82,10 +88,11 @@ class ProyectoMiProyectoTest extends TestCase
 
         $familia = User::factory()->create(['rol' => Rol::UsuarioFinal]);
 
-        // Esta familia no guardó nada, así que no tiene que ver el proyecto de la otra
+        // Esta familia no guardó nada, así que le tiene que llegar el aviso y no el cálculo de la otra
         $this->actingAs($familia)
             ->get(route('familia.proyecto.ver'))
-            ->assertRedirect(route('familia.inicio'));
+            ->assertOk()
+            ->assertInertia(fn (Assert $pagina) => $pagina->where('calculo', null));
     }
 
     public function test_un_profesional_no_entra_a_mi_proyecto(): void

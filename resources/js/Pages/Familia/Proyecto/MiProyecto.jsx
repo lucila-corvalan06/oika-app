@@ -1,10 +1,71 @@
 import { Head, Link } from '@inertiajs/react';
-import { CaretRightIcon, ClockIcon, FlagIcon, RulerIcon } from '@phosphor-icons/react';
+import {
+    CaretRightIcon,
+    ClockIcon,
+    CurrencyDollarIcon,
+    FlagIcon,
+    HouseIcon,
+    ListBulletsIcon,
+    RulerIcon,
+} from '@phosphor-icons/react';
 import Boton from '../../../Componentes/Boton';
 import LayoutFamilia from '../../../Componentes/LayoutFamilia';
 import { meses, numero, pesos } from '../../../formato';
 
-export default function MiProyecto({ filas, calculo, dosPlantas }) {
+// Lo que va a aparecer cuando arme el proyecto, para mostrarlo de antemano en el aviso
+const adelanto = [
+    { texto: 'El costo', Icono: CurrencyDollarIcon },
+    { texto: 'El tiempo', Icono: ClockIcon },
+    { texto: 'Las etapas', Icono: ListBulletsIcon },
+];
+
+export default function MiProyecto({ filas, calculo, dosPlantas, armar }) {
+    // Sin proyecto muestro un aviso para armarlo, antes de leer datos que no existen
+    if (calculo === null) {
+        return (
+            <LayoutFamilia activa="proyecto">
+                <Head title="Mi proyecto" />
+
+                <h1 className="text-3xl font-semibold">Mi proyecto</h1>
+                <p className="mt-2">Tu hogar, etapa por etapa.</p>
+
+                <section aria-labelledby="titulo-vacio" className="mt-6 rounded-3xl bg-arena/50 p-6 md:p-8 lg:mt-10">
+                    {/* Uso la misma casa de la navegación para que el ícono ya sea conocido */}
+                    <span className="flex size-14 items-center justify-center rounded-full bg-crema">
+                        <HouseIcon size={28} weight="bold" aria-hidden="true" className="text-terracota" />
+                    </span>
+
+                    <h2 id="titulo-vacio" className="mt-5 text-xl font-semibold md:text-2xl">
+                        Tu proyecto empieza acá
+                    </h2>
+                    <p className="mt-2 text-mocha md:text-lg">
+                        Respondé 5 preguntas cortas sobre cómo imaginás tu&nbsp;hogar.
+                    </p>
+
+                    {/* Borde punteado como en el plan de ahorro, que en la app ya significa que algo todavía no está */}
+                    <p id="titulo-adelanto" className="mt-6 text-sm font-medium text-mocha">
+                        Después vas a ver acá
+                    </p>
+                    <ul aria-labelledby="titulo-adelanto" className="mt-2.5 grid grid-cols-3 gap-2 md:gap-3">
+                        {adelanto.map(({ texto, Icono }) => (
+                            <li
+                                key={texto}
+                                className="flex flex-col items-start gap-2 rounded-2xl border-2 border-dashed border-mocha/40 px-2.5 py-3.5 text-sm text-mocha md:flex-row md:items-center md:gap-2.5 md:p-4 md:text-base"
+                            >
+                                <Icono size={22} weight="bold" aria-hidden="true" />
+                                {texto}
+                            </li>
+                        ))}
+                    </ul>
+
+                    <Boton href={armar} className="mt-7 md:min-h-14 md:w-fit md:px-8 md:text-lg">
+                        Armar mi proyecto
+                    </Boton>
+                </section>
+            </LayoutFamilia>
+        );
+    }
+
     const mesesTotales = meses(calculo.semanas_total);
     const primeraEtapa = calculo.etapas[0];
 

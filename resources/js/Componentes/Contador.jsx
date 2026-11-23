@@ -4,6 +4,17 @@ import { MinusIcon, PlusIcon } from '@phosphor-icons/react';
 const claseBoton =
     'flex size-12 items-center justify-center rounded-full border-2 border-cafe text-cafe transition-colors hover:bg-arena/50 active:border-terracota active:bg-arena active:text-terracota focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracota aria-disabled:opacity-40 md:size-14';
 
+/**
+ * Contador con botones para restar y sumar, entre un mínimo y un máximo.
+ * @param {object} props
+ * @param {string} props.id Identificador del contador.
+ * @param {string} props.etiqueta Texto del contador.
+ * @param {string} props.singular Nombre en singular para los botones.
+ * @param {number} props.valor Número actual.
+ * @param {number} props.minimo Número más bajo permitido.
+ * @param {number} props.maximo Número más alto permitido.
+ * @param {function} props.onChange Se llama con el número nuevo.
+ */    
 export default function Contador({ id, etiqueta, singular, valor, minimo, maximo, onChange, className = '' }) {
     const enMinimo = valor <= minimo;
     const enMaximo = valor >= maximo;

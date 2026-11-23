@@ -1,3 +1,11 @@
+/**
+ * Casilla para marcar, con su etiqueta y su mensaje de error.
+ * @param {object} props
+ * @param {string} props.id Identificador de la casilla.
+ * @param {string} props.etiqueta Texto al lado de la casilla.
+ * @param {boolean} props.checked Si está marcada.
+ * @param {string} [props.error] Mensaje de error.
+ */
 export default function Checkbox({ id, etiqueta, checked, onChange, error, className = '', ...resto }) {
     const idError = `${id}-error`;
 

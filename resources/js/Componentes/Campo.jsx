@@ -1,6 +1,15 @@
 import { useState } from 'react';
 import { EyeIcon, EyeSlashIcon } from '@phosphor-icons/react';
 
+/**
+ * Campo de formulario con etiqueta, ayuda y error. Si es de contraseña, suma el botón para verla.
+ * @param {object} props
+ * @param {string} props.id Identificador del campo.
+ * @param {string} props.etiqueta Texto que va arriba del campo.
+ * @param {string} [props.type] Tipo de campo, por ejemplo "email" o "password".
+ * @param {string} [props.ayuda] Texto de ayuda debajo del campo.
+ * @param {string} [props.error] Mensaje de error.
+ */
 export default function Campo({
     id,
     etiqueta,

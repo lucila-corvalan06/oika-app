@@ -1,5 +1,12 @@
 import Boton from './Boton';
 
+/**
+ * Botones de abajo de cada paso del armado del proyecto: volver y continuar.
+ * @param {object} props
+ * @param {string} props.volverA Dirección del paso anterior.
+ * @param {boolean} [props.editando] Si se edita desde el resumen, cambian a Cancelar y Listo.
+ * @param {boolean} [props.desactivado] Si Continuar está deshabilitado porque falta elegir algo.
+ */
 export default function BotonesPie({ volverA, editando = false, desactivado = false }) {
     return (
         // En compu los centro en una columna angosta para que no queden como barras, igual que en elegir rol

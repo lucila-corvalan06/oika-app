@@ -1,5 +1,9 @@
-// Dejo el SVG en línea para poder darle el tamaño con clases en cada pantalla
-// Pinto con currentColor para que el color salga de la clase de texto, y uso claro sobre fondos de color como la bienvenida
+/**
+ * Logo de oika en SVG. Toma el color de la clase de texto, así se puede usar sobre cualquier fondo.
+ * @param {object} props
+ * @param {string} [props.className] Clases para el tamaño, por defecto "h-8 w-auto".
+ * @param {boolean} [props.claro] Si va en crema, para fondos de color.
+ */
 export default function Imagotipo({ className = 'h-8 w-auto', claro = false, ...resto }) {
     const color = claro ? 'text-crema' : 'text-terracota';
 

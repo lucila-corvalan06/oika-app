@@ -1,3 +1,11 @@
+/**
+ * Tarjeta con título, descripción y una casilla para marcar, para elegir varias opciones a la vez.
+ * @param {object} props
+ * @param {string} props.id Identificador de la casilla.
+ * @param {string} props.titulo Texto principal.
+ * @param {string} props.descripcion Texto de abajo.
+ * @param {boolean} props.checked Si está marcada.
+ */
 export default function TarjetaCasilla({ id, titulo, descripcion, checked, onChange }) {
     return (
         // Desde tablet agrando el relleno y los textos para que acompañen a los títulos más grandes

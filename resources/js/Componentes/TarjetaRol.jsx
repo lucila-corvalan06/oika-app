@@ -14,6 +14,17 @@ const parada = {
     nunca: { tarjeta: '', textos: '', circulo: '' },
 };
 
+/**
+ * Tarjeta para elegir una opción con ícono, título y descripción, como el rol en el registro.
+ * @param {object} props
+ * @param {string} props.id Identificador de la opción.
+ * @param {string} props.titulo Texto principal.
+ * @param {string} props.descripcion Texto de abajo.
+ * @param {React.ReactNode} [props.icono] Ícono de la tarjeta.
+ * @param {boolean} props.checked Si está elegida.
+ * @param {boolean} [props.deshabilitada] Si todavía no se puede elegir, muestra Próximamente.
+ * @param {'md'|'xl'|'nunca'} [props.paradaDesde] Desde qué tamaño de pantalla la tarjeta se pone vertical.
+ */
 export default function TarjetaRol({
     id,
     name,

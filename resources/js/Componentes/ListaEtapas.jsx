@@ -1,6 +1,12 @@
 // Dejo las etapas en una lista para cambiar el texto en un solo lugar cuando las validen
 const etapas = ['Cimientos y contrapiso', 'Mampostería', 'Techo y losa', 'Instalaciones', 'Terminaciones'];
 
+
+/**
+ * Lista numerada de las cinco etapas de obra, unidas por una línea.
+ * @param {object} props
+ * @param {string} [props.className] Clases para ubicar la lista.
+ */
 export default function ListaEtapas({ className = '' }) {
     return (
         <ol className={className}>

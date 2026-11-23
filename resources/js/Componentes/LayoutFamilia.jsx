@@ -3,6 +3,12 @@ import BarraLateral from './BarraLateral';
 import Imagotipo from './Imagotipo';
 import NavegacionInferior from './NavegacionInferior';
 
+/**
+ * Estructura de las pantallas de la familia: barra lateral en escritorio y navegación abajo en celu y tablet.
+ * @param {object} props
+ * @param {string} props.activa Sección del menú que se marca como actual, por ejemplo "proyecto".
+ * @param {React.ReactNode} props.children Contenido de la pantalla.
+ */
 export default function LayoutFamilia({ activa, children }) {
     return (
         <div className="flex min-h-dvh flex-col lg:flex-row">

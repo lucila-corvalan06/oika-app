@@ -1,3 +1,12 @@
+/**
+ * Opción corta para elegir una entre varias, por ejemplo la cantidad de autos que quieren que cubra la cochera.
+ * @param {object} props
+ * @param {string} props.id Identificador de la opción.
+ * @param {string} props.name Nombre del grupo de opciones.
+ * @param {string} props.value Valor que se guarda al elegirla.
+ * @param {string} props.etiqueta Texto de la opción.
+ * @param {boolean} props.checked Si está elegida.
+ */
 export default function OpcionCorta({ id, name, value, etiqueta, checked, onChange }) {
     return (
         // Desde tablet la hago más alta y con letra más grande, como el resto de las opciones del wizard

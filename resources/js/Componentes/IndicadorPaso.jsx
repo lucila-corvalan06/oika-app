@@ -1,5 +1,12 @@
 import { PencilSimpleIcon } from '@phosphor-icons/react';
 
+/**
+ * Muestra en qué paso del armado del proyecto está la familia, con sus barras de avance.
+ * @param {object} props
+ * @param {number} props.actual Paso actual.
+ * @param {number} props.total Cantidad de pasos.
+ * @param {boolean} [props.editando] Si se está editando desde el resumen, muestra ese aviso en vez de los pasos.
+ */
 export default function IndicadorPaso({ actual, total, editando = false, className = '' }) {
     // Al editar desde el resumen no hay recorrido que mostrar, así que dejo solo el aviso
     if (editando) {

@@ -18,6 +18,14 @@ const tamanos = {
 const base =
     'inline-flex w-full items-center justify-center rounded-xl px-6 font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50';
 
+/**
+ * Botón de la app. Si recibe href, funciona como enlace.
+ * @param {object} props
+ * @param {'principal'|'secundaria'|'claro'} [props.variante] Color del botón.
+ * @param {'normal'|'grande'} [props.tamano] Alto y tamaño de letra.
+ * @param {string} [props.href] Dirección a la que lleva.
+ * @param {boolean} [props.disabled] Si está deshabilitado.
+ */
 export default function Boton({
     variante = 'principal',
     tamano = 'normal',

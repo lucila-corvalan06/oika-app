@@ -40,6 +40,11 @@ function Item({ seccion, activa }) {
     );
 }
 
+/**
+ * Menú lateral para escritorio, con el logo arriba y Perfil al pie.
+ * @param {object} props
+ * @param {string} props.activa Sección que se marca como actual.
+ */
 export default function BarraLateral({ activa }) {
     return (
         <nav

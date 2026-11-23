@@ -1,4 +1,4 @@
-// Armo los formatos una sola vez y los reuso.
+// Armo los formatos una sola vez y los reuso
 const formatoPesos = new Intl.NumberFormat('es-AR', {
     style: 'currency',
     currency: 'ARS',
@@ -8,20 +8,33 @@ const formatoPesos = new Intl.NumberFormat('es-AR', {
 
 const formatoNumero = new Intl.NumberFormat('es-AR', { maximumFractionDigits: 1 });
 
+/**
+ * Muestra un monto en pesos, sin centavos.
+ * @param {number} valor
+ * @returns {string} Por ejemplo "$ 221.495.931".
+ */
 export function pesos(valor) {
     return formatoPesos.format(valor);
 }
 
+/**
+ * Muestra un número con coma y un decimal como máximo.
+ * @param {number} valor
+ * @returns {string} Por ejemplo "46,5".
+ */
 export function numero(valor) {
     return formatoNumero.format(valor);
 }
 
-// Paso las semanas a meses redondeando al medio mes, porque las familias se organizan en meses.
+/**
+ * Pasa semanas a meses, redondeando al medio mes.
+ * @param {number} semanas
+ * @returns {string} Por ejemplo "Aproximadamente 10 meses y medio", o vacío si es menos de un mes.
+ */
 export function meses(semanas) {
-    // Uso 30,44 días por mes, que es el promedio de un año (365,25 ÷ 12).
+    // Uso 30,44 días por mes, el promedio de un año
     const redondeado = Math.round(((semanas * 7) / 30.44) * 2) / 2;
 
-    // Con menos de un mes no muestro nada: ahí alcanza con las semanas.
     if (redondeado < 1) {
         return '';
     }
@@ -32,8 +45,11 @@ export function meses(semanas) {
     return redondeado > enteros ? `${texto} y medio` : texto;
 }
 
-// Pego las palabras cortas a la que sigue para que no queden colgadas al final de una línea
-// Uso \s antes de la palabra para no tocar palabras más largas, como "Delantal"
+/**
+ * Pega las palabras cortas a la siguiente para que no queden solas al final de una línea.
+ * @param {string} texto
+ * @returns {string}
+ */
 export function pegarConectores(texto) {
     return texto.replace(/(?<=^|\s)(a|al|con|de|del|e|el|en|la|las|lo|los|o|por|su|tu|u|un|una|y)\s/gi, '$1\u00A0');
 }

@@ -36,6 +36,11 @@ function Item({ seccion, activa }) {
     );
 }
 
+/**
+ * Barra de navegación de abajo para celu y tablet, con la sección actual marcada.
+ * @param {object} props
+ * @param {string} props.activa Sección que se marca como actual.
+ */
 export default function NavegacionInferior({ activa }) {
     return (
         <nav aria-label="Navegación principal" className="border-t border-mocha/20 bg-crema">

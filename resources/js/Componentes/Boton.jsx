@@ -2,8 +2,7 @@ import { Link } from '@inertiajs/react';
 
 // Cada variante lleva su propio color de foco porque sobre un fondo terracota el contorno terracota no se vería
 const variantes = {
-    principal:
-        'bg-terracota text-white hover:bg-terracota-oscuro active:bg-terracota-presionado focus-visible:outline-terracota',
+    principal: 'bg-terracota text-crema hover:bg-terracota-oscuro active:bg-terracota-presionado focus-visible:outline-terracota',
     secundaria: 'border-2 border-cafe bg-transparent text-cafe hover:bg-arena/50 active:bg-arena focus-visible:outline-terracota',
     // La variante clara es para fondos terracota, donde el botón principal se perdería
     claro: 'bg-crema text-cafe hover:bg-arena active:bg-arena focus-visible:outline-crema',

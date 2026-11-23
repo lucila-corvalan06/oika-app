@@ -3,6 +3,12 @@ import { ArrowLeftIcon, ArrowRightIcon, ClockIcon, HourglassIcon } from '@phosph
 import LayoutFamilia from '../../../Componentes/LayoutFamilia';
 import { meses, numero, pesos } from '../../../formato';
 
+
+// Pego la palabra corta al nombre que sigue para que no quede colgada al final de una línea
+function pegarConectores(texto) {
+    return texto.replace(/ (y|de|la|el) /g, ' $1\u00A0');
+}
+
 export default function Etapa({ etapa, tareas, costo, semanas, porcentaje, precioActualizado, recorrido }) {
     const mesesEtapa = meses(semanas);
 
@@ -109,17 +115,18 @@ export default function Etapa({ etapa, tareas, costo, semanas, porcentaje, preci
             )}
 
             {/* Con borde y sin relleno, para que no se confundan con las tareas, que no se pueden tocar */}
+            {/* La flecha va en la línea chica para que un nombre largo no la empuje afuera */}
             <nav aria-label="Etapa anterior y siguiente" className="mt-10 grid grid-cols-2 gap-3">
                 {anterior && (
                     <Link
                         href={`/familia/proyecto/etapas/${anterior.orden}`}
-                        className="flex items-center gap-3 rounded-2xl px-5 py-4 ring-2 ring-arena ring-inset hover:bg-arena/50"
+                        className="flex flex-col rounded-2xl px-4 py-4 ring-2 ring-arena ring-inset hover:bg-arena/50 md:px-5"
                     >
-                        <ArrowLeftIcon size={18} weight="bold" aria-hidden="true" />
-                        <span>
-                            <span className="block text-sm text-mocha">Etapa anterior</span>
-                            <span className="block font-semibold">{anterior.nombre}</span>
+                        <span className="flex items-center gap-1.5 text-sm text-mocha">
+                            <ArrowLeftIcon size={16} weight="bold" aria-hidden="true" />
+                            Etapa anterior
                         </span>
+                        <span className="mt-1 font-semibold">{pegarConectores(anterior.nombre)}</span>
                     </Link>
                 )}
 
@@ -127,13 +134,13 @@ export default function Etapa({ etapa, tareas, costo, semanas, porcentaje, preci
                 {siguiente && (
                     <Link
                         href={`/familia/proyecto/etapas/${siguiente.orden}`}
-                        className="col-start-2 flex items-center justify-end gap-3 rounded-2xl px-5 py-4 text-right ring-2 ring-arena ring-inset hover:bg-arena/50"
+                        className="col-start-2 flex flex-col items-end rounded-2xl px-4 py-4 text-right ring-2 ring-arena ring-inset hover:bg-arena/50 md:px-5"
                     >
-                        <span>
-                            <span className="block text-sm text-mocha">Etapa siguiente</span>
-                            <span className="block font-semibold">{siguiente.nombre}</span>
+                        <span className="flex items-center gap-1.5 text-sm text-mocha">
+                            Etapa siguiente
+                            <ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
                         </span>
-                        <ArrowRightIcon size={18} weight="bold" aria-hidden="true" />
+                        <span className="mt-1 font-semibold">{pegarConectores(siguiente.nombre)}</span>
                     </Link>
                 )}
             </nav>

@@ -1,8 +1,9 @@
 import { Link } from '@inertiajs/react';
 import { secciones } from './secciones';
 
+// nowrap para que el semibold de la sección activa no parta el texto y cambie el alto de la barra
 const clasesItem =
-    'flex min-h-12 w-full flex-col items-center justify-center gap-0.5 px-1 py-2 text-xs font-medium text-cafe focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracota disabled:opacity-50';
+    'flex min-h-12 w-full flex-col items-center justify-center gap-0.5 px-1 py-2 text-xs font-medium whitespace-nowrap text-cafe focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracota disabled:opacity-50 md:text-sm';
 
 function Item({ seccion, activa }) {
     const Icono = seccion.Icono;

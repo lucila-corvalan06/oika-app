@@ -12,7 +12,7 @@ export default function LayoutFamilia({ activa, children }) {
             </div>
 
             <div className="flex min-w-0 flex-1 flex-col">
-                <header className="mx-auto w-full max-w-md px-6 py-6 lg:hidden">
+                <header className="mx-auto w-full max-w-md px-6 py-6 md:max-w-3xl md:px-12 md:pt-10 lg:hidden">
                     {/* Hago que el logo lleve al inicio igual que en la barra lateral */}
                     <Link
                         href="/familia/inicio"
@@ -23,8 +23,8 @@ export default function LayoutFamilia({ activa, children }) {
                     </Link>
                 </header>
 
-                {/* Dejo el main con flex-1 para que la navegación quede al pie aunque haya poco contenido. */}
-                <main className="mx-auto w-full max-w-md flex-1 px-6 pb-6 lg:max-w-5xl lg:px-12 lg:pt-12">
+                {/* Dejo el main con flex-1 para que la navegación quede al pie aunque haya poco contenido */}
+                <main className="mx-auto w-full max-w-md flex-1 px-6 pb-6 md:max-w-3xl md:px-12 md:pb-10 lg:max-w-5xl lg:px-12 lg:pt-12">
                     {children}
                 </main>
 

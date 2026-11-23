@@ -1,0 +1,9 @@
+Carrera: Programación y Diseño Web
+Materia: Clientes Web Mobile
+Cuatrimestre: 4to cuatrimestre
+Año: 2026
+Turno: Tarde
+Comisión: DWT4AP
+Apellido y nombre: Corvalan, Lucila
+Docente: Santiago Gallino
+Carácter de entrega: 2do parcial

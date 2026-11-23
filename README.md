@@ -1,58 +1,80 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+oika
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Tu hogar, a tu ritmo.
 
-## About Laravel
+oika es una aplicación para familias que quieren construir su hogar por etapas, a medida que pueden ahorrar. La familia responde unas preguntas sobre cómo imagina su hogar y la app le muestra cuánto le va a costar, cuánto va a tardar y cuántos metros cuadrados va a tener, todo separado en las cinco etapas de una obra: cimientos y contrapiso, mampostería, techo y losa, instalaciones y terminaciones.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Con eso, la familia puede ir ahorrando etapa por etapa y empezar cada una cuando junta lo que necesita, sin tener que endeudarse por la obra entera. La idea es que alguien que nunca construyó nada sepa siempre cuál es su próximo paso y cuánta plata necesita para darlo.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+oika también reúne a quienes hacen posible una obra. Las familias pueden encontrar profesionales, proveedores de materiales e inmobiliarias, ver sus perfiles con fotos de trabajos y calificaciones, y contactarlos por WhatsApp o por mail. Del otro lado, los profesionales, proveedores e inmobiliarias se suman a la app con un plan mensual para llegar a familias que ya saben qué quieren construir y cuánto pueden ahorrar.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+La app está publicada en https://oika-production-oafi50.laravel.cloud y el código está en https://github.com/lucila-corvalan06/oika-app.
 
-## Learning Laravel
+Funcionalidades implementadas hasta el momento
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Por ahora la app tiene la landing, donde se explica qué es oika, cómo funciona, los planes para profesionales y las preguntas frecuentes. Tiene registro e ingreso, y al registrarse cada persona elige si es una familia o un profesional. Cada uno entra solamente a sus propias pantallas.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+La familia arma su proyecto en seis pasos. Elige cuántas plantas va a tener su hogar, cuántos dormitorios y baños, cómo quiere los espacios, si suma cochera o algún extra y el nivel de terminación. En el último paso ve un resumen con todas sus respuestas y puede cambiar cualquiera antes de guardar.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+Con esas respuestas trabaja el motor de cálculo, que es la parte central del proyecto. Calcula los metros cuadrados, el costo y el tiempo de la obra y los reparte entre las cinco etapas. Los valores que usa para calcular están cargados en la base de datos.
 
-## Agentic Development
+Después de guardar el proyecto, la familia tiene un inicio que le muestra su próximo paso, una pantalla con su proyecto completo y el detalle de cada etapa, con lo que cuesta, lo que tarda, las tareas que se hacen y lo que conviene tener en cuenta.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Toda la app está adaptada para verse bien en celular, en tablet y en computadora.
 
-```bash
-composer require laravel/boost --dev
+Tecnologías que usé
 
-php artisan boost:install
-```
+Usé Laravel 13 con PHP para el backend y MySQL para la base de datos. Para el frontend usé React, y para conectar las dos partes usé Inertia, que me permite armar las pantallas en React sin tener que hacer una API aparte. Los estilos los hice con Tailwind CSS y el frontend se compila con Vite. Los íconos son de Phosphor Icons.
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Para comprobar que todo funcione bien escribí tests con PHPUnit, que hoy son 90, y uso Laravel Pint para que el código PHP tenga siempre el mismo formato. La app está publicada en Laravel Cloud.
 
-## Contributing
+Cómo instalarlo
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Para instalarlo hace falta tener PHP 8.3 o superior, Composer, Node.js con npm y MySQL.
 
-## Code of Conduct
+Primero hay que descargar el proyecto y entrar a su carpeta. Si lo recibiste en un zip, alcanza con descomprimirlo.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+bash
+git clone https://github.com/lucila-corvalan06/oika-app.git
+cd oika-app
 
-## Security Vulnerabilities
+Después se instalan las dependencias de PHP.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+bash
+composer install
 
-## License
+Hay que crear el archivo de configuración copiando el de ejemplo. En Windows, desde PowerShell, el comando es Copy-Item .env.example .env.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+bash
+cp .env.example .env
+
+Y generar la clave de la aplicación.
+
+bash
+php artisan key:generate
+
+Antes de seguir hay que crear en MySQL una base de datos vacía llamada oika y completar el usuario y la contraseña de MySQL en el archivo .env, en DB_USERNAME y DB_PASSWORD.
+
+Con la base lista, este comando crea las tablas y carga los datos que la app necesita: las etapas de obra, sus tareas, los ambientes del armado del proyecto y los valores que usa el motor de cálculo. Sin estos datos el motor no puede calcular nada.
+
+bash
+php artisan migrate --seed
+
+Por último se instalan las dependencias del frontend.
+
+bash
+npm install
+Cómo correrlo
+
+Hacen falta dos terminales abiertas en la carpeta del proyecto. En una se levanta el servidor de Laravel y en la otra Vite, que va compilando el frontend.
+
+bash
+php artisan serve
+bash
+npm run dev
+
+Con las dos andando, la app se abre en http://localhost:8000. Para ver el recorrido completo conviene crear una cuenta como familia y armar un proyecto.
+
+Los tests se corren con composer test.
+
+Lucila Corvalán

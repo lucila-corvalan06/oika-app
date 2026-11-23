@@ -53,7 +53,7 @@ const planes = [
         incluye: [
             'Todo lo del Plan Básico.',
             'Hasta 15 fotos de trabajos.',
-            'Estadísticas básicas: visitas y contactos del mes.',
+            'Estadísticas básicas de visitas y contactos del mes.',
         ],
     },
     {
@@ -74,7 +74,7 @@ export default function Planes() {
     return (
         <section id="planes" aria-labelledby="titulo-planes" className="bg-arena/50">
             {/* Ensancho el contenedor para que las tarjetas no queden angostas con tanto espacio entre ellas */}
-            <div className="mx-auto max-w-7xl px-6 py-20 lg:py-32">
+            <div className="mx-auto max-w-7xl px-6 py-16 md:py-24 lg:py-32">
                 <div className="mx-auto max-w-5xl text-center">
                     <p className="text-sm font-medium tracking-wide uppercase">
                         Para profesionales, proveedores e inmobiliarias
@@ -87,9 +87,9 @@ export default function Planes() {
                         Llegá a familias que ya están <span className="text-terracota">listas para construir</span>
                     </h2>
 
-                    <p className="mx-auto mt-6 max-w-3xl text-lg">
-                        Conversás con familias que ya definieron qué quieren construir y cuánto pueden ahorrar para
-                        empezar.
+                    <p className="mx-auto mt-6 max-w-3xl text-lg text-mocha">
+                        Conversás con familias que ya definieron qué quieren construir y cuánto pueden ahorrar
+                        para&nbsp;empezar.
                     </p>
                 </div>
 
@@ -100,7 +100,7 @@ export default function Planes() {
                             <span className="shrink-0 text-terracota">{beneficio.icono}</span>
                             <div>
                                 <p className="font-semibold">{beneficio.titulo}</p>
-                                <p className="mt-1">{beneficio.descripcion}</p>
+                                <p className="mt-1 text-mocha">{beneficio.descripcion}</p>
                             </div>
                         </li>
                     ))}
@@ -112,7 +112,7 @@ export default function Planes() {
                         <li
                             key={plan.nombre}
                             className={`relative flex flex-col rounded-3xl px-7 py-9 lg:px-8 lg:py-10 ${sombra} ${
-                                plan.destacado ? 'bg-terracota text-white' : 'bg-arena'
+                                plan.destacado ? 'bg-terracota text-crema' : 'bg-arena'
                             }`}
                         >
                             <h3 className="flex items-center gap-3 text-xl font-semibold">

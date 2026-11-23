@@ -1,49 +1,45 @@
 import Boton from '../Boton';
+import { ArrowRightIcon } from '@phosphor-icons/react';
 
 export default function Cierre() {
     return (
-        <section aria-labelledby="titulo-cierre" className="bg-terracota text-white">
-            {/* Uso la misma grilla que Planificador para apilar texto, mockup y botón en celu y acomodarlos en dos columnas en escritorio */}
-            <div className="mx-auto grid max-w-6xl gap-10 px-6 py-20 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-0 lg:py-32">
-                <div className="lg:col-start-1 lg:row-start-1 lg:self-end">
-                    <h2
-                        id="titulo-cierre"
-                        className="text-3xl leading-tight font-semibold text-balance sm:text-4xl lg:text-5xl"
-                    >
-                        Tu proyecto empieza con cinco preguntas
-                    </h2>
+        // Pongo text-crema en la sección para que todos los textos de adentro salgan en crema
+        <section aria-labelledby="titulo-cierre" className="bg-terracota text-crema">
+            {/* Cierro centrado y sin imagen, como el hero, para que la única acción sea el botón */}
+            <div className="mx-auto max-w-3xl px-6 py-24 text-center md:py-28 lg:py-36">
+                <h2
+                    id="titulo-cierre"
+                    className="text-4xl leading-[1.1] font-semibold text-balance sm:text-5xl lg:text-6xl"
+                >
+                    Tu hogar empieza con cinco&nbsp;preguntas
+                </h2>
 
-                    <p className="mt-6 max-w-xl text-lg">
-                        Respondé sin apuro y mirá tu proyecto dividido en las cinco etapas de obra. Es gratis para
-                        familias.
-                    </p>
-                </div>
+                {/* En escritorio la llevo a 24 px para que cuente como texto grande y llegue al contraste mínimo */}
+                <p className="mx-auto mt-6 max-w-xl text-lg md:text-xl lg:text-2xl">
+                    Respondelas sin apuro y mirá tu obra dividida en etapas, con lo que cuesta y lo que tarda
+                    cada&nbsp;una. Es gratis para&nbsp;familias.
+                </p>
 
-                {/* Dejo este espacio para el mockup de la app, que sumo cuando esté hecho el planificador */}
-                <div
-                    aria-hidden="true"
-                    className="min-h-80 w-full rounded-2xl bg-crema/15 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:min-h-96"
-                />
-
-                <div className="lg:col-start-1 lg:row-start-2 lg:mt-10 lg:self-start">
-                    {/* Envuelvo el botón para que en celu ocupe todo el ancho y desde tablet quede del tamaño de su texto */}
-                    <div className="sm:w-fit">
-                        <Boton href="/bienvenida" variante="claro">
-                            Armá tu proyecto gratis
+                {/* Envuelvo el botón para que en celu ocupe todo el ancho y desde tablet quede del tamaño de su texto */}
+                <div className="mt-10 flex justify-center">
+                    <div className="w-full sm:w-fit">
+                        <Boton href="/bienvenida" variante="claro" tamano="grande">
+                            Armá tu proyecto
                         </Boton>
                     </div>
-
-                    {/* Dejo a los profesionales como enlace y no como botón para que no compita con la acción principal */}
-                    <p className="mt-6">
-                        ¿Sos profesional, proveedor o inmobiliaria?{' '}
-                        <a
-                            href="#planes"
-                            className="font-medium whitespace-nowrap underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crema"
-                        >
-                            Mirá los planes <span aria-hidden="true">→</span>
-                        </a>
-                    </p>
                 </div>
+
+                {/* Dejo a los profesionales como enlace y no como botón para que no compita con la acción principal */}
+                <p className="mt-8">
+                    ¿Sos profesional, proveedor o inmobiliaria?{' '}
+                    <a
+                        href="#planes"
+                        className="inline-flex items-center gap-1.5 font-medium whitespace-nowrap underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crema"
+                    >
+                        Mirá los planes
+                        <ArrowRightIcon size={18} weight="bold" aria-hidden="true" />
+                    </a>
+                </p>
             </div>
         </section>
     );

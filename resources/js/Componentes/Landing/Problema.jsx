@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react';
 import { ArrowRightIcon } from '@phosphor-icons/react';
 
 const dudas = [
@@ -18,15 +19,16 @@ const dudas = [
 export default function Problema() {
     return (
         <section aria-labelledby="titulo-problema" className="bg-arena/50">
-            <div className="mx-auto max-w-6xl px-6 py-16 lg:py-24">
+            <div className="mx-auto max-w-6xl px-6 py-16 md:py-24 lg:py-32">
+                {/* Uso el mismo tamaño de título que el resto de las secciones para que la landing se vea pareja */}
                 <h2
                     id="titulo-problema"
-                    className="mx-auto max-w-3xl text-center text-3xl leading-tight font-semibold text-balance sm:text-4xl"
+                    className="mx-auto max-w-3xl text-center text-3xl leading-tight font-semibold text-balance sm:text-4xl lg:text-5xl"
                 >
                     Construir tu hogar no tiene que ser <span className="text-terracota">abrumador</span>
                 </h2>
 
-                <p className="mx-auto mt-4 max-w-2xl text-center text-lg">
+                <p className="mx-auto mt-6 max-w-2xl text-center text-lg text-mocha">
                     Es normal tener dudas. oika te ayuda a resolver cada una, paso a paso.
                 </p>
 
@@ -34,7 +36,7 @@ export default function Problema() {
                     {/* Estos títulos solo se ven en escritorio, en celu y tablet cada tarjeta lleva su propia etiqueta */}
                     <div aria-hidden="true" className="hidden lg:grid lg:grid-cols-2">
                         <p className="bg-arena px-8 py-4 text-sm font-medium tracking-wide uppercase">Antes</p>
-                        <p className="bg-terracota px-8 py-4 text-sm font-medium tracking-wide text-white uppercase">
+                        <p className="bg-terracota px-8 py-4 text-sm font-medium tracking-wide text-crema uppercase">
                             Con oika
                         </p>
                     </div>
@@ -42,7 +44,17 @@ export default function Problema() {
                     <ul className="flex flex-col gap-6 lg:gap-0.5">{problemas(dudas)}</ul>
                 </div>
 
-                <p className="mt-10 text-center text-lg font-medium">¿Te suena alguna? Empezá a resolverlas hoy.</p>
+                {/* Solo la acción es enlace, la pregunta queda como texto, igual que en el hero y el cierre */}
+                <p className="mt-10 text-center text-lg font-medium">
+                    ¿Te suena alguna?{' '}
+                    <Link
+                        href="/bienvenida"
+                        className="inline-flex items-center gap-1.5 whitespace-nowrap underline underline-offset-4"
+                    >
+                        Empezá a resolverlas hoy
+                        <ArrowRightIcon size={18} weight="bold" aria-hidden="true" />
+                    </Link>
+                </p>
             </div>
         </section>
     );
@@ -57,7 +69,7 @@ function problemas(lista) {
                 <p className="text-xl font-semibold lg:text-2xl">“{item.duda}”</p>
             </div>
 
-            <div className="relative flex flex-col justify-center gap-2 rounded-b-2xl bg-terracota p-6 pt-9 text-white lg:rounded-none lg:p-8">
+            <div className="relative flex flex-col justify-center gap-2 rounded-b-2xl bg-terracota p-6 pt-9 text-crema lg:rounded-none lg:p-8">
                 {/* Pongo la flecha dentro de la respuesta para que quede justo en el borde con la duda, abajo en celu y al medio en escritorio */}
                 <span
                     aria-hidden="true"

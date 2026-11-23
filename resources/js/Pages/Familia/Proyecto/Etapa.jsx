@@ -86,7 +86,7 @@ export default function Etapa({ etapa, tareas, costo, semanas, porcentaje, preci
                 <ol className="mt-3 flex flex-col gap-2">
                     {tareas.map((tarea) => (
                         <li key={tarea.orden} className="flex gap-4 rounded-2xl bg-arena/50 px-5 py-4">
-                            <span className="w-5 font-semibold text-terracota-oscuro">{tarea.orden}</span>
+                            <span className="w-5 shrink-0 font-semibold text-terracota-oscuro">{tarea.orden}</span>
                             <div>
                                 <p className="font-semibold">{tarea.nombre}</p>
                                 <p className="mt-1 text-mocha">{tarea.descripcion}</p>

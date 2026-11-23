@@ -124,7 +124,7 @@ export default function MiProyecto({ filas, calculo, dosPlantas, armar }) {
                                 href={`/familia/proyecto/etapas/${etapa.orden}`}
                                 className="flex items-center gap-4 rounded-2xl bg-arena/50 px-5 py-4 hover:bg-arena"
                             >
-                                <span className="w-5 font-semibold text-terracota-oscuro">{etapa.orden}</span>
+                                <span className="w-5 shrink-0 font-semibold text-terracota-oscuro">{etapa.orden}</span>
                                 <span className="flex-1">{etapa.nombre}</span>
                                 <span className="text-right">
                                     <span className="block font-medium">{pesos(etapa.costo)}</span>

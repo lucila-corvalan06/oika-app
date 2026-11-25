@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {{-- favicon --}}
         <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+        {{-- Cargo Outfit antes que los estilos, así no depende de que esté instalada en la compu --}}
+        @fonts
         {{-- Cargo el CSS y el JS juntos para que las pantallas ya salgan con estilos --}}
         @viteReactRefresh
         @vite(['resources/css/app.css', 'resources/js/app.jsx'])

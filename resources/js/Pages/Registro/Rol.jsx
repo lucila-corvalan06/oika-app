@@ -54,7 +54,7 @@ export default function Rol() {
             <IndicadorPaso actual={1} total={2} />
 
             {/* Desde tablet centro la pregunta, las opciones y los botones en el alto que queda */}
-            <main className="mt-8 flex flex-1 flex-col md:mt-0 md:justify-center">
+            <main className="mt-8 flex flex-1 flex-col md:mt-10 md:justify-center">
                 <h1 className="text-3xl font-semibold md:text-center md:text-5xl md:leading-tight md:font-medium md:tracking-tight">
                     ¿Cómo vas a usar oika?
                 </h1>

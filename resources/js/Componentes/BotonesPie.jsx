@@ -16,8 +16,8 @@ export default function BotonesPie({ volverA, editando = false, desactivado = fa
             {/* En pantallas bajas la franja queda pegada abajo para que no haya que buscar los botones */}
             {/* La franja va de todo el ancho para que tape bien el contenido que pasa por debajo */}
             <div className="sticky bottom-0 bg-crema py-4">
-                {/* En compu los centro en una columna angosta para que no queden como barras, igual que en elegir rol */}
-                <div className="flex gap-3 xl:mx-auto xl:w-full xl:max-w-lg">
+                {/* En compu les doy el mismo ancho que la columna de las preguntas para que queden alineados con las tarjetas */}
+                <div className="flex gap-3 xl:mx-auto xl:w-full xl:max-w-xl">
                     {/* Al editar, volver significa cancelar y lleva al resumen sin tocar la respuesta */}
                     <Boton
                         href={editando ? '/familia/proyecto/resumen' : volverA}
